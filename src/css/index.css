@@ -1,0 +1,10 @@
+body{
+    width: 1000px;
+    height: 500px;
+    background: #CCC;
+}
+.img{
+    width: 100px;
+    height: 100px;
+    background: url('../images/1.png') no-repeat;
+}
