@@ -58,7 +58,7 @@ const utilname = (function () {
 console.log('util', util)
 const htmlPages = (function () {
     var pageDir = path.resolve(__dirname, '../src/pages');
-    var pageFiles = glob.sync(pageDir + '/*.html');
+    var pageFiles = glob.sync(pageDir + '/*.ejs');
     var array = [];
     // var chunks=[ 'vendor','main']
     pageFiles.forEach(function (filePath) {
@@ -196,6 +196,16 @@ config = {
             {
                 test: /\.(html|htm)$/,
                 use: ['html-loader']
+            },
+            {
+                test: /\.ejs$/,
+                loader: 'ejs-loader',
+                options: {
+                  title: 'The Ant: An Introduction',
+                  season: 1,
+                  episode: 9,
+                  production: true//process.env.ENV === 'production'
+                }
             },
             {
                 test: /\.(png|jpg|gif)$/i,
