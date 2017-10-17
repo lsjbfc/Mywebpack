@@ -5,7 +5,8 @@ const glob = require('glob');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin'); // 文件夹清除工具
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const precss = require('precss');
+const fs=require('fs')
+// const precss = require('precss');
 
 let config = {}
 const uglifyJs = new webpack.optimize.UglifyJsPlugin({
@@ -83,6 +84,7 @@ const htmlPages = (function () {
     return array;
 })();
 console.log('entry')
+deleteall(path.resolve(__dirname, '../dist'))
 const entry = Object.assign(
     pagelist,
     utilname.util,
@@ -101,7 +103,7 @@ config = {
         publicPath: '/',
     },
     resolve: {
-        extensions: ['.js', '.css', '.png', '.jpg'],
+        extensions: ['.js', '.css','.sass','.sass', '.png', '.jpg'],
         alias: Object.assign({},
             util,
             {
@@ -127,34 +129,47 @@ config = {
             //         }]
             //     })
             // },
+            // {
+            //     test: /\.scss$/,
+            //     loader: ExtractTextPlugin.extract("style", 'css!sass') //这里用了样式分离出来的插件，如果不想分离出来，可以直接这样写 loader:'style!css!sass'
+            // },
+            {
+				test: /\.scss$/,
+				use: ['style-loader', 'css-loader', 'sass-loader']
+			},
+            {
+				test: /\.(eot|woff|ttf|svg)$/,
+				use: ['url-loader?limit=8192&name=font/[name].[hash:16].[ext]']
+			},
             { test: /\.css$/,
                 exclude: /(node_modules|bower_components)/,
                 use: ExtractTextPlugin.extract({
                   fallback: 'style-loader',
                   use: [
-                    { loader: 'css-loader', 
-                    options: { 
-                        importLoaders: 1,
-                        minimize:false,
-                        modules: false,
-                        // plugins:function(){
-                        //     return [
-                        //      require('autoprefixer')
-                        //     ]
-                        //     }                        
-                        } 
+                    {   
+                        loader: 'css-loader', 
+                        options: { 
+                            importLoaders: 1,
+                            minimize:false,
+                            modules: false,
+                            // plugins:function(){
+                            //     return [
+                            //      require('autoprefixer')
+                            //     ]
+                            //     }                        
+                            } 
                         
                     },
-                    'postcss-loader',
-                    'autoprefixer-loader',
+                    'postcss-loader'
+                    // 'autoprefixer-loader',
                   ]
                  
                 })
             },
-            {  
-                test: /\.css$/,  
-                use: ['style-loader', 'css-loader', 'autoprefixer-loader']  
-            },  
+            // {  
+            //     test: /\.css$/,  
+            //     use: ['style-loader', 'css-loader', 'autoprefixer-loader']  
+            // },  
             // {
             //     loader:'postcss-loader',
             //     options:{
@@ -183,7 +198,7 @@ config = {
                 use: ['html-loader']
             },
             {
-                test: /\.(png|jpg|gif|svg)$/i,
+                test: /\.(png|jpg|gif)$/i,
                 use: [
                     {
                         loader: "url-loader",
@@ -227,10 +242,24 @@ config = {
             jquery: 'window.jQuery',
             $: "jquery"
         }),
-        new CleanWebpackPlugin([ path.resolve(__dirname, '../dist')])
+        new CleanWebpackPlugin([ path.resolve(__dirname, '../dist')])//删除dist目录
     ].concat(htmlPages)
 };
 
-
+function deleteall(path) {  //删除dist目录及目录下的文件方法
+    var files = [];  
+    if(fs.existsSync(path)) {  
+        files = fs.readdirSync(path);  
+        files.forEach(function(file, index) {  
+            var curPath = path + "/" + file;  
+            if(fs.statSync(curPath).isDirectory()) { // recurse  
+                deleteall(curPath);  
+            } else { // delete file  
+                fs.unlinkSync(curPath);  
+            }  
+        });  
+        fs.rmdirSync(path);  
+    }  
+};  
 
 module.exports = config
