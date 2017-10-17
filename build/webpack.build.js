@@ -199,13 +199,19 @@ config = {
             },
             {
                 test: /\.ejs$/,
-                loader: 'ejs-loader',
-                options: {
-                  title: 'The Ant: An Introduction',
-                  season: 1,
-                  episode: 9,
-                  production: true//process.env.ENV === 'production'
-                }
+                use:[
+                    {
+                        loader: 'ejs-loader',
+                        options: {
+                            title: 'The Ant: An Introduction',
+                            season: 1,
+                            episode: 9,
+                            production: true//process.env.ENV === 'production'
+                        }
+                    },
+                    // 'ejs-render'
+                ],
+                
             },
             {
                 test: /\.(png|jpg|gif)$/i,
