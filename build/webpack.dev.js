@@ -67,10 +67,14 @@ const utilname = (function () {
     });
     return { util: map, name: name };
 })();
+console.log('..............')
 console.log('util', util)
+console.log('..............')
+console.log('utilname', utilname)
+console.log('..............')
 const htmlPages = (function () {
     var pageDir = path.resolve(__dirname, '../src/pages');
-    var pageFiles = glob.sync(pageDir +'/*.*');//+ '/*.html'
+    var pageFiles = glob.sync(pageDir + '/*.art');
     var array = [];
     // var chunks=[ 'vendor','main']
     pageFiles.forEach(function (filePath) {
@@ -78,9 +82,11 @@ const htmlPages = (function () {
         var chunks = ['vendor', 'main']
         // console.log('chunks',chunkarr)
         array.push(new HtmlWebpackPlugin({
-            title:filename,
             template: filePath,// path.resolve(__dirname, 'src/template/index.html'),
-            filename: filename + '.html',//'ejs-render-loader!' +
+            filename: filename + '.html',
+            inject:"body",
+            title: 'ejs',
+            data:new Date(),
             chunks: ['vendor'].concat(utilname.name).concat(['main']).concat([filename]),
             chunksSortMode: function (chunk1, chunk2) {
                 var order = ['vendor'].concat(utilname.name).concat(['main']).concat([filename]);
@@ -103,6 +109,7 @@ const entry = Object.assign(
     {
         main: path.resolve(__dirname, '../src/main.js'),
         vendor: ['jquery'],
+        // arttemplate:['']
         // jquery:['jquery']
         // cookie:['cookie']
     }
@@ -176,10 +183,10 @@ config = {
                     }
                 ]
             },
-            {
-                test: /\.(html|htm)$/,
-                use: ['html-loader']//,'ejs-loader'
-            },
+            // {
+            //     test: /\.(html|htm)$/,
+            //     use: ['html-loader']//,'ejs-loader'
+            // },
             {
                 test: /\.ejs$/,
                 use:[
@@ -209,6 +216,19 @@ config = {
                     // ,
                     // 'image-webpack-loader'
                 ],
+            },
+            {
+                test: /\.art$/,
+                use:[
+                    {
+                        loader:'art-template-loader',
+                        options: {
+                            // art-template options (if necessary) 
+                            // @see https://github.com/aui/art-template 
+                        }
+                    },
+                ]
+               
             },
             {
                 test: require.resolve('jquery'),
@@ -241,7 +261,11 @@ config = {
         // 		collapseWhitespace:false
         //     }
         // }),
-    ].concat(htmlPages)
+    ].concat(htmlPages),
+    externals:{
+        jquery: 'window.$',
+        // artTemplate: 'window.template'
+    }
 };
 
 

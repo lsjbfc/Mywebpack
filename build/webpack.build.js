@@ -58,7 +58,7 @@ const utilname = (function () {
 console.log('util', util)
 const htmlPages = (function () {
     var pageDir = path.resolve(__dirname, '../src/pages');
-    var pageFiles = glob.sync(pageDir + '/*.*');
+    var pageFiles = glob.sync(pageDir + '/*.ejs');
     var array = [];
     // var chunks=[ 'vendor','main']
     pageFiles.forEach(function (filePath) {
@@ -69,7 +69,7 @@ const htmlPages = (function () {
             template: filePath,// path.resolve(__dirname, 'src/template/index.html'),
             filename: filename + '.html',
             inject:"body",
-            title: 'My App',
+            title: 'ejs',
             data:new Date(),
             chunks: ['vendor'].concat(utilname.name).concat(['main']).concat([filename]),
             chunksSortMode: function (chunk1, chunk2) {
@@ -120,22 +120,7 @@ config = {
     },
     module: {
         rules: [
-            // {
-            //     test: /\.css$/,
-            //     use: ['style-loader', 'css-loader','press'],
-            //     use: ExtractTextPlugin.extract({
-            //         use: [{
-            //             loader: 'css-loader',
-            //             options: {
-            //                 minimize: true
-            //             }
-            //         }]
-            //     })
-            // },
-            // {
-            //     test: /\.scss$/,
-            //     loader: ExtractTextPlugin.extract("style", 'css!sass') //这里用了样式分离出来的插件，如果不想分离出来，可以直接这样写 loader:'style!css!sass'
-            // },
+
             {
 				test: /\.scss$/,
 				use: ['style-loader', 'css-loader', 'sass-loader']
@@ -169,21 +154,7 @@ config = {
                  
                 })
             },
-            // {  
-            //     test: /\.css$/,  
-            //     use: ['style-loader', 'css-loader', 'autoprefixer-loader']  
-            // },  
-            // {
-            //     loader:'postcss-loader',
-            //     options:{
-            //         ident:'postcss-ident',
-            //         plugins:function(){
-            //         return [
-            //             require('autoprefixer')
-            //         ]
-            //     }
-            //     }
-            // },
+
             {
                 test: /\.js$/,
                 exclude: /(node_modules|bower_components)/,
@@ -212,15 +183,31 @@ config = {
                     
             //     ]
             // },
+            // {
+            //     test: /\.ejs$/,
+            //     use: [
+
+            //         {
+            //             loader: 'ejs-loader'
+            //         },
+                      
+            //     ]
+            // },
             {
                 test: /\.ejs$/,
-                use: [
-
+                use:[
                     {
-                        loader: 'ejs-loader'
+                        loader:'ejs-loader',//'ejs-html-loader', //
+                        options: {
+                            title: 'ejs',
+                            season: 1,
+                            episode: 9,
+                            production: false//process.env.ENV === 'production'
+                        }
                     },
-                      
-                ]
+                    // 'ejs-render'
+                ],
+                
             },
             // {
             //     test: /\.ejs$/,
@@ -295,20 +282,20 @@ config = {
             postcss: [require('autoprefixer')({browsers:['last 5 versions']})]
             }
         ),
-        new HtmlWebpackPlugin({
-            template:path.resolve(__dirname, '../src/pages/index.ejs'),
-            filename:"index.html",
-            publicPath:"xxx",
-            inject:"body",
-            title:"首页",
-            data:new Date(),
-            minify:{
-              // collapseWhitespace:true,
-              // removeComments:true
-            },
-            chunks:["index"] 
-        }),
-    ]//.concat(htmlPages)
+        // new HtmlWebpackPlugin({
+        //     template:path.resolve(__dirname, '../src/pages/index.ejs'),
+        //     filename:"index.html",
+        //     publicPath:"xxx",
+        //     inject:"body",
+        //     title:"首页",
+        //     data:new Date(),
+        //     minify:{
+        //       // collapseWhitespace:true,
+        //       // removeComments:true
+        //     },
+        //     chunks:["index"] 
+        // }),
+    ].concat(htmlPages)
 };
 
 function deleteall(path) {  //删除dist目录及目录下的文件方法

@@ -1,0 +1,1 @@
+webpackJsonp([5],{4:function(t,e,o){"use strict";(function(t){t(function(){var t={a:function(t){console.log(t),t="err"+t}};t.a("test"),console.log(t.a("test"));var e=["1","2","xx"];console.log("template",template());template("lists",{arr:e})})}).call(e,o(0))}},[4]);

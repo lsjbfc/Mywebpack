@@ -3,6 +3,9 @@ const lists=[
         name:'index',
         chunck:[''],
         unchunck:['']
+    },{
+        name:'login',
+        chunck:['']
     }
 ]
 

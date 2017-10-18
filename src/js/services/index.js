@@ -5,7 +5,8 @@
 
 console.log('111')
 
-// $('title').html('hotxx')
-// $.cookie('cookie','123')
+$('title').html('hotxx')
+$.cookie('cookie','123')
+$.cookie('cookie')
 
 

@@ -4,13 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>login</title>
+    <title>列表</title>
 </head>
 <body>
-        include
+    
+    <div id="lists"> </div>
 
-        <div>${require('./header.html')}</div>
-    <div id='header'></div>
-    login
+    <script type="text/html" id="lists_tem">
+        {{each arr item}}
+            <div>
+                {{item}}
+            </div>
+        {{each/}}
+    </script>
 </body>
 </html>
