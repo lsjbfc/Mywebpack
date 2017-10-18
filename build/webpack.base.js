@@ -63,6 +63,7 @@ const htmlPages = (function () {
                 var order2 = order.indexOf(chunk2.names[0]);
                 return order1 - order2;
             },
+            data:new Date(),
             minify: {
                 removeComments: false,
                 collapseWhitespace: false

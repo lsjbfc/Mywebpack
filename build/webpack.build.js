@@ -58,7 +58,7 @@ const utilname = (function () {
 console.log('util', util)
 const htmlPages = (function () {
     var pageDir = path.resolve(__dirname, '../src/pages');
-    var pageFiles = glob.sync(pageDir + '/*.ejs');
+    var pageFiles = glob.sync(pageDir + '/*.*');
     var array = [];
     // var chunks=[ 'vendor','main']
     pageFiles.forEach(function (filePath) {
@@ -68,6 +68,9 @@ const htmlPages = (function () {
         array.push(new HtmlWebpackPlugin({
             template: filePath,// path.resolve(__dirname, 'src/template/index.html'),
             filename: filename + '.html',
+            inject:"body",
+            title: 'My App',
+            data:new Date(),
             chunks: ['vendor'].concat(utilname.name).concat(['main']).concat([filename]),
             chunksSortMode: function (chunk1, chunk2) {
                 var order = ['vendor'].concat(utilname.name).concat(['main']).concat([filename]);
@@ -103,7 +106,7 @@ config = {
         publicPath: '/',
     },
     resolve: {
-        extensions: ['.js', '.css','.sass','.sass', '.png', '.jpg'],
+        extensions: ['.js', '.css','.sass', '.png', '.jpg'],
         alias: Object.assign({},
             util,
             {
@@ -193,26 +196,49 @@ config = {
                     }
                 ]
             },
-            {
-                test: /\.(html|htm)$/,
-                use: ['html-loader']
-            },
+            // {
+            //     test: /\.(html|htm|ejs)$/,
+            //     use: [
+                    
+            //         {
+            //             loader:'html-loader',
+            //             options:{
+            //                 attrs: [':src'],
+            //                 minimize: true,
+            //                 removeComments: false,
+            //                 collapseWhitespace: false
+            //             }
+            //         }
+                    
+            //     ]
+            // },
             {
                 test: /\.ejs$/,
-                use:[
+                use: [
+
                     {
-                        loader: 'ejs-loader',
-                        options: {
-                            title: 'The Ant: An Introduction',
-                            season: 1,
-                            episode: 9,
-                            production: true//process.env.ENV === 'production'
-                        }
+                        loader: 'ejs-loader'
                     },
-                    // 'ejs-render'
-                ],
-                
+                      
+                ]
             },
+            // {
+            //     test: /\.ejs$/,
+            //     use:[
+            //         {
+            //             loader: 'ejs-loader',
+            //             options: {
+            //                 attrs: [':src'],
+            //                 title: 'ejs',
+            //                 season: 1,
+            //                 episode: 9,
+            //                 production: false//process.env.ENV === 'production'
+            //             }
+            //         },
+            //         // 'ejs-render'
+            //     ],
+                
+            // },
             {
                 test: /\.(png|jpg|gif)$/i,
                 use: [
@@ -231,8 +257,15 @@ config = {
                 test: require.resolve('jquery'),
                 use: 'expose-loader?$!expose-loader?jQuery', // jQuery and $
             }
-        ]
+        ],
+        // htmlLoader: {
+        //     ignoreCustomFragments: [/\{\{.*?}}/],
+        //     root: path.resolve(__dirname, '../dist'),
+        //     attrs: ['img:src', 'link:href']
+        // },
     },
+    devtool: 'source-map',
+  
     plugins: [
         // new webpack.LoaderOptionsPlugin({
         //     options: {
@@ -246,7 +279,6 @@ config = {
         //     }
         // }),
         uglifyJs,
-        // require('autoprefixer'),
         // 'autoprefixer': {browsers: 'last 5 version'},
         new ExtractTextPlugin('css/[name].[chunkhash:5].css'),
         // new ExtractTextPlugin('css/[name].[chunkhash:5].css'),
@@ -258,8 +290,25 @@ config = {
             jquery: 'window.jQuery',
             $: "jquery"
         }),
-        new CleanWebpackPlugin([ path.resolve(__dirname, '../dist')])//删除dist目录
-    ].concat(htmlPages)
+        new CleanWebpackPlugin([ path.resolve(__dirname, '../dist')]),//删除dist目录
+        new webpack.LoaderOptionsPlugin({ //浏览器加前缀            options: {
+            postcss: [require('autoprefixer')({browsers:['last 5 versions']})]
+            }
+        ),
+        new HtmlWebpackPlugin({
+            template:path.resolve(__dirname, '../src/pages/index.ejs'),
+            filename:"index.html",
+            publicPath:"xxx",
+            inject:"body",
+            title:"首页",
+            data:new Date(),
+            minify:{
+              // collapseWhitespace:true,
+              // removeComments:true
+            },
+            chunks:["index"] 
+        }),
+    ]//.concat(htmlPages)
 };
 
 function deleteall(path) {  //删除dist目录及目录下的文件方法
@@ -277,5 +326,6 @@ function deleteall(path) {  //删除dist目录及目录下的文件方法
         fs.rmdirSync(path);  
     }  
 };  
+
 
 module.exports = config

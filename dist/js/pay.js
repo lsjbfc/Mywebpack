@@ -1,1 +1,1 @@
-webpackJsonp([4],{7:function(o,c,n){"use strict";console.log("pay")}},[7]);
+webpackJsonp([3],{7:function(o,c,n){"use strict";console.log("pay")}},[7]);

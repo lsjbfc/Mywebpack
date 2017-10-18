@@ -1,1 +1,1 @@
-webpackJsonp([1],{1:function(o,c){},6:function(o,c,n){"use strict";(function(o){n(1),console.log("I am login"),console.log("cookie",o.cookie("cookie"))}).call(c,n(0))}},[6]);
+webpackJsonp([0],[,,function(o,e,n){"use strict";(function(o){n(5),n(6),console.log("I am login"),console.log("cookie",o.cookie("cookie")),o("#header").html(header),o(function(){console.log("header",header)})}).call(e,n(0))},,,function(o,e){},function(o,e){}],[2]);

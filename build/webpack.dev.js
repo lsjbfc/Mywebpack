@@ -70,7 +70,7 @@ const utilname = (function () {
 console.log('util', util)
 const htmlPages = (function () {
     var pageDir = path.resolve(__dirname, '../src/pages');
-    var pageFiles = glob.sync(pageDir + '/*.html');
+    var pageFiles = glob.sync(pageDir +'/*.*');//+ '/*.html'
     var array = [];
     // var chunks=[ 'vendor','main']
     pageFiles.forEach(function (filePath) {
@@ -78,8 +78,9 @@ const htmlPages = (function () {
         var chunks = ['vendor', 'main']
         // console.log('chunks',chunkarr)
         array.push(new HtmlWebpackPlugin({
+            title:filename,
             template: filePath,// path.resolve(__dirname, 'src/template/index.html'),
-            filename: filename + '.html',
+            filename: filename + '.html',//'ejs-render-loader!' +
             chunks: ['vendor'].concat(utilname.name).concat(['main']).concat([filename]),
             chunksSortMode: function (chunk1, chunk2) {
                 var order = ['vendor'].concat(utilname.name).concat(['main']).concat([filename]);
@@ -115,7 +116,7 @@ config = {
         publicPath: '/',
     },
     resolve: {
-        extensions: ['.js', '.css', '.png', '.jpg'],
+        extensions: ['.js', '.css','.sass', '.png', '.jpg'],
         alias: Object.assign({},
             util,
             {
@@ -130,15 +131,37 @@ config = {
     module: {
         rules: [
             {
-                test: /\.css$/,
-                use: ['style-loader', 'css-loader'],
+				test: /\.scss$/,
+				use: ['style-loader', 'css-loader', 'sass-loader']
+			},
+            {
+				test: /\.(eot|woff|ttf|svg)$/,
+				use: ['url-loader?limit=8192&name=font/[name].[ext]']//.[hash:5]
+			},
+            { test: /\.css$/,
+                exclude: /(node_modules|bower_components)/,
                 use: ExtractTextPlugin.extract({
-                    use: [{
-                        loader: 'css-loader',
-                        options: {
-                            minimize: true
-                        }
-                    }]
+                  fallback: 'style-loader',
+                  use: [
+                    {   
+                        loader: 'css-loader', 
+                        options: { 
+                            importLoaders: 1,
+                            minimize:false,
+                            modules: false,
+                            name:'font/[name].[ext]'
+                            // plugins:function(){
+                            //     return [
+                            //      require('autoprefixer')
+                            //     ]
+                            //     }                        
+                            } 
+                        
+                    },
+                    'postcss-loader',
+                    'autoprefixer-loader',
+                  ]
+                 
                 })
             },
             {
@@ -155,10 +178,26 @@ config = {
             },
             {
                 test: /\.(html|htm)$/,
-                use: ['html-loader']
+                use: ['html-loader']//,'ejs-loader'
             },
             {
-                test: /\.(png|jpg|gif|svg)$/i,
+                test: /\.ejs$/,
+                use:[
+                    {
+                        loader:'ejs-loader',//'ejs-html-loader', //
+                        options: {
+                            title: 'ejs',
+                            season: 1,
+                            episode: 9,
+                            production: false//process.env.ENV === 'production'
+                        }
+                    },
+                    // 'ejs-render'
+                ],
+                
+            },
+            {
+                test: /\.(png|jpg|gif)$/i,
                 use: [
                     {
                         loader: "url-loader",
@@ -170,6 +209,10 @@ config = {
                     // ,
                     // 'image-webpack-loader'
                 ],
+            },
+            {
+                test: require.resolve('jquery'),
+                use: 'expose-loader?$!expose-loader?jQuery', // jQuery and $
             }
         ]
     },
@@ -186,7 +229,7 @@ config = {
             jquery: 'window.jQuery',
             $: "jquery"
 		}),
-		commonsJs
+		commonsJs,
         // new CleanWebpackPlugin(['dist']),
         // new HtmlWebpackPlugin({
         // 	template:'./src/pages/index.html',
@@ -197,7 +240,7 @@ config = {
         // 		removeComments:false,
         // 		collapseWhitespace:false
         //     }
-        // })
+        // }),
     ].concat(htmlPages)
 };
 
