@@ -90,9 +90,9 @@ const htmlPages = (function () {
             inject:"body",
             // title: 'ejs',
             // data:new Date(),
-            chunks: ['vendor','template'].concat(utilname.name).concat(['main']).concat([filename]),
+            chunks: ['vendor',filename],//,'template'].concat(utilname.name).concat(['main']).concat([filename])
             chunksSortMode: function (chunk1, chunk2) {
-                var order = ['vendor'].concat(utilname.name).concat(['main']).concat([filename]);
+                var order = ['vendor',filename]//.concat([filename]); //.concat(utilname.name).concat(['main']).
                 var order1 = order.indexOf(chunk1.names[0]);
                 var order2 = order.indexOf(chunk2.names[0]);
                 return order1 - order2;
@@ -243,7 +243,7 @@ config = {
             },
             {
                 test: require.resolve('jquery'),
-                use: 'expose-loader?$!expose-loader?jQuery', // jQuery and $
+                use: 'expose-loader?$!expose-loader?jquery', // jQuery and $
             }
         ]
     },
@@ -252,7 +252,7 @@ config = {
         new ExtractTextPlugin('css/[name].css'),
 
         new webpack.ProvidePlugin({
-            jquery: 'window.jQuery',
+            jquery: 'window.jquery',
             $: "jquery",
         
             // template:'window.template'
