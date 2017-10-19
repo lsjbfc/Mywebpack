@@ -1,1 +1,1 @@
-webpackJsonp([5],{4:function(t,e,o){"use strict";(function(t){t(function(){var t={a:function(t){console.log(t),t="err"+t}};t.a("test"),console.log(t.a("test"));var e=["1","2","xx"];console.log("template",template());template("lists",{arr:e})})}).call(e,o(0))}},[4]);
+webpackJsonp([2],{9:function(e,n,t){"use strict";function u(e){return e&&e.__esModule?e:{default:e}}var r=t(0);u(r);t(1);var a=t(3);u(a)}},[9]);

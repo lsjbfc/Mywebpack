@@ -5,18 +5,18 @@ const glob = require('glob');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin'); // 文件夹清除工具
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const fs=require('fs')
+const fs = require('fs')
 // const precss = require('precss');
 
 let config = {}
 const uglifyJs = new webpack.optimize.UglifyJsPlugin({
-	beautify: false,
-	comments: false,
-	compress: {
-		warnings: false,
-		// 删除console
-		drop_console: false
-	}
+    beautify: false,
+    comments: false,
+    compress: {
+        warnings: false,
+        // 删除console
+        drop_console: false
+    }
 });
 const pagelist = (function () {
     let jsDir = path.resolve(__dirname, '../src/js/services/');
@@ -53,12 +53,15 @@ const utilname = (function () {
         // })
         name.push(filename)
     });
-    return { util: map, name: name };
+    return {
+        util: map,
+        name: name
+    };
 })();
 console.log('util', util)
 const htmlPages = (function () {
     var pageDir = path.resolve(__dirname, '../src/pages');
-    var pageFiles = glob.sync(pageDir + '/*.ejs');
+    var pageFiles = glob.sync(pageDir + '/*.art');
     var array = [];
     // var chunks=[ 'vendor','main']
     pageFiles.forEach(function (filePath) {
@@ -66,14 +69,14 @@ const htmlPages = (function () {
         var chunks = ['vendor', 'main']
         // console.log('chunks',chunkarr)
         array.push(new HtmlWebpackPlugin({
-            template: filePath,// path.resolve(__dirname, 'src/template/index.html'),
+            template: filePath, // path.resolve(__dirname, 'src/template/index.html'),
             filename: filename + '.html',
-            inject:"body",
-            title: 'ejs',
-            data:new Date(),
-            chunks: ['vendor'].concat(utilname.name).concat(['main']).concat([filename]),
+            inject: "body",
+            // title: '',
+            // data: new Date(),
+            chunks: ['vendor'].concat(['main']).concat([filename]), //.concat(utilname.name)
             chunksSortMode: function (chunk1, chunk2) {
-                var order = ['vendor'].concat(utilname.name).concat(['main']).concat([filename]);
+                var order = ['vendor'].concat(['main']).concat([filename]); //.concat(utilname.name)
                 var order1 = order.indexOf(chunk1.names[0]);
                 var order2 = order.indexOf(chunk2.names[0]);
                 return order1 - order2;
@@ -88,9 +91,11 @@ const htmlPages = (function () {
 })();
 console.log('entry')
 deleteall(path.resolve(__dirname, '../dist'))
-const entry = Object.assign(
+
+
+const entry = Object.assign({},
     pagelist,
-    utilname.util,
+    utilname.util, 
     {
         main: path.resolve(__dirname, '../src/main.js'),
         vendor: ['jquery'],
@@ -98,6 +103,9 @@ const entry = Object.assign(
         // cookie:['cookie']
     }
 )
+
+console.log('entry',entry)
+
 config = {
     entry: entry,
     output: {
@@ -106,10 +114,9 @@ config = {
         publicPath: '/',
     },
     resolve: {
-        extensions: ['.js', '.css','.sass', '.png', '.jpg'],
+        extensions: ['.js', '.css', '.sass', '.png', '.jpg'],
         alias: Object.assign({},
-            util,
-            {
+            util, {
                 '@lib': './src/lib',
                 '@css': './src/css'
                 // 'jquery':'jquery',
@@ -122,55 +129,53 @@ config = {
         rules: [
 
             {
-				test: /\.scss$/,
-				use: ['style-loader', 'css-loader', 'sass-loader']
-			},
+                test: /\.scss$/,
+                use: ['style-loader', 'css-loader', 'sass-loader']
+            },
             {
-				test: /\.(eot|woff|ttf|svg)$/,
-				use: ['url-loader?limit=8192&name=font/[name].[hash:16].[ext]']
-			},
-            { test: /\.css$/,
+                test: /\.(eot|woff|ttf|svg)$/,
+                use: ['url-loader?limit=8192&name=font/[name].[hash:16].[ext]']
+            },
+            {
+                test: /\.css$/,
                 exclude: /(node_modules|bower_components)/,
                 use: ExtractTextPlugin.extract({
-                  fallback: 'style-loader',
-                  use: [
-                    {   
-                        loader: 'css-loader', 
-                        options: { 
-                            importLoaders: 1,
-                            minimize:false,
-                            modules: false,
-                            // plugins:function(){
-                            //     return [
-                            //      require('autoprefixer')
-                            //     ]
-                            //     }                        
-                            } 
-                        
-                    },
-                    'postcss-loader'
-                    // 'autoprefixer-loader',
-                  ]
-                 
+                    fallback: 'style-loader',
+                    use: [{
+                            loader: 'css-loader',
+                            options: {
+                                importLoaders: 1,
+                                minimize: false,
+                                modules: false,
+                                // plugins:function(){
+                                //     return [
+                                //      require('autoprefixer')
+                                //     ]
+                                //     }                        
+                            }
+
+                        },
+                        'postcss-loader'
+                        // 'autoprefixer-loader',
+                    ]
+
                 })
             },
 
             {
                 test: /\.js$/,
                 exclude: /(node_modules|bower_components)/,
-                use: [
-                    {
-                        loader: 'babel-loader',
-                        options: {
-                            presets: ['es2015']
-                        }
+                use: [{
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['es2015']
                     }
-                ]
+                }]
             },
             // {
             //     test: /\.(html|htm|ejs)$/,
             //     use: [
-                    
+
             //         {
             //             loader:'html-loader',
             //             options:{
@@ -180,7 +185,7 @@ config = {
             //                 collapseWhitespace: false
             //             }
             //         }
-                    
+
             //     ]
             // },
             // {
@@ -190,24 +195,23 @@ config = {
             //         {
             //             loader: 'ejs-loader'
             //         },
-                      
+
             //     ]
             // },
             {
                 test: /\.ejs$/,
-                use:[
-                    {
-                        loader:'ejs-loader',//'ejs-html-loader', //
+                use: [{
+                        loader: 'ejs-loader', //'ejs-html-loader', //
                         options: {
                             title: 'ejs',
                             season: 1,
                             episode: 9,
-                            production: false//process.env.ENV === 'production'
+                            production: false //process.env.ENV === 'production'
                         }
                     },
                     // 'ejs-render'
                 ],
-                
+
             },
             // {
             //     test: /\.ejs$/,
@@ -224,12 +228,11 @@ config = {
             //         },
             //         // 'ejs-render'
             //     ],
-                
+
             // },
             {
                 test: /\.(png|jpg|gif)$/i,
-                use: [
-                    {
+                use: [{
                         loader: "url-loader",
                         options: {
                             limit: 200,
@@ -239,6 +242,17 @@ config = {
                     // ,
                     // 'image-webpack-loader'
                 ],
+            },
+            {
+                test: /\.art$/,
+                use: [{
+                    loader: 'art-template-loader',
+                    options: {
+                        // art-template options (if necessary) 
+                        // @see https://github.com/aui/art-template 
+                    }
+                }, ]
+
             },
             {
                 test: require.resolve('jquery'),
@@ -252,7 +266,6 @@ config = {
         // },
     },
     devtool: 'source-map',
-  
     plugins: [
         // new webpack.LoaderOptionsPlugin({
         //     options: {
@@ -271,17 +284,19 @@ config = {
         // new ExtractTextPlugin('css/[name].[chunkhash:5].css'),
         new webpack.optimize.CommonsChunkPlugin({
             name: 'vendor',
-            filename: 'js/[name][chunkhash:5].js'
+            filename: 'js/[name][chunkhash:5].js',
+            minChunks:'2'
         }),
         new webpack.ProvidePlugin({
             jquery: 'window.jQuery',
             $: "jquery"
         }),
-        new CleanWebpackPlugin([ path.resolve(__dirname, '../dist')]),//删除dist目录
+        new CleanWebpackPlugin([path.resolve(__dirname, '../dist')]), //删除dist目录
         new webpack.LoaderOptionsPlugin({ //浏览器加前缀            options: {
-            postcss: [require('autoprefixer')({browsers:['last 5 versions']})]
-            }
-        ),
+            postcss: [require('autoprefixer')({
+                browsers: ['last 5 versions']
+            })]
+        }),
         // new HtmlWebpackPlugin({
         //     template:path.resolve(__dirname, '../src/pages/index.ejs'),
         //     filename:"index.html",
@@ -295,24 +310,30 @@ config = {
         //     },
         //     chunks:["index"] 
         // }),
-    ].concat(htmlPages)
+    ].concat(htmlPages),
+    externals:{
+        // 'jquery':'jquery'
+        // 'cookie':'./src/lib/jquery.cookie.js',
+        // 'template': path.resolve(__dirname,'../src/lib/jquery.cookie.js'),
+        // 'cookie': path.resolve(__dirname,'../src/lib/template.js')
+    }
 };
 
-function deleteall(path) {  //删除dist目录及目录下的文件方法
-    var files = [];  
-    if(fs.existsSync(path)) {  
-        files = fs.readdirSync(path);  
-        files.forEach(function(file, index) {  
-            var curPath = path + "/" + file;  
-            if(fs.statSync(curPath).isDirectory()) { // recurse  
-                deleteall(curPath);  
+function deleteall(path) { //删除dist目录及目录下的文件方法
+    var files = [];
+    if (fs.existsSync(path)) {
+        files = fs.readdirSync(path);
+        files.forEach(function (file, index) {
+            var curPath = path + "/" + file;
+            if (fs.statSync(curPath).isDirectory()) { // recurse  
+                deleteall(curPath);
             } else { // delete file  
-                fs.unlinkSync(curPath);  
-            }  
-        });  
-        fs.rmdirSync(path);  
-    }  
-};  
+                fs.unlinkSync(curPath);
+            }
+        });
+        fs.rmdirSync(path);
+    }
+};
 
 
 module.exports = config

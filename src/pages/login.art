@@ -7,52 +7,22 @@
     <title>login</title>
 </head>
 <body>
-        include
     <!-- ${require('../images/login-logo.png')} -->
-        <header>
-                <a href="./index.html"><img src="../images/login-logo.png"/></a>
-                <p class="platform">健康家居全生活化服务平台</p>
-        </header>
-        <main>
-            <div class="mainbox">
-                <form>
-                    <p class="title">
-                        <span>账户登录</span>
-                        
-                    </p>
-                    <p class="tip"></p>
-                    <p class="input name"><input maxlength="21" autocomplete="off" type="text" id="username" placeholder="手机号/账号"/></p>
-    
-                    <p class="input psw"><input maxlength="18" autocomplete="off" type="password" id="password" placeholder="密码"/></p>
-                    <div class="safe">
-                        <div>
-                            <input type="checkbox" id="checked"/><label>自动登录</label>
-                        </div>
-                        <div>
-                            <a href="register.html">注册账号</a>
-                            <span>|</span>
-                            <a href="#">忘记密码</a>
-                        </div>
-                    </div>
-                    <p id="login">立即登录</p>
-                    <!-- <fieldset>
-                        <legend>更多合作账号</legend>
-                        <div>
-                            <i class="iconfont icon-weixin"></i>
-                            <i class="iconfont icon-qq"></i>
-                            <i class="iconfont icon-xinlangweibo"></i>
-                        </div>
-                    </fieldset> -->
-                </form>
-            </div>
-        </main>
         
+    {{include './header.art'}}
+    <img src="../images/1.png" />
+    <div id='header'>
 
-    <div id='header'></div>
+
+        header
+    </div>  
     login
-    <script type="text/html" id="tpl-user">
-        {{name}}
+
+    <script type="text/html" id="my">
+        {(each arr item)}
+        {(item)}
+        {(/each)}
     </script>
-    <script> var temp = template('tpl-user', {user1: {name: 'test'}}); $('#header').append(temp); </script>`
+   
 </body>
 </html>

@@ -42,7 +42,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack-dev-server --hot --inline  --config build/webpack.dev.js --progress --colors --watch ",
+    "dev": "webpack-dev-server --hot --inline  --progress --colors --config build/webpack.dev.js",
     "build": "webpack --config build/webpack.build.js",
     "webpack": "webpack --config webpack.base.js"
   },

@@ -7,19 +7,15 @@ const CleanWebpackPlugin = require('clean-webpack-plugin'); // 文件夹清除�
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const hotModule = new webpack.HotModuleReplacementPlugin();
-const uglifyJs = new webpack.optimize.UglifyJsPlugin({
-	beautify: false,
-	comments: false,
-	compress: {
-		warnings: false,
-		// 删除console
-		drop_console: false
-	}
-});
+
+
 const commonsJs=new webpack.optimize.CommonsChunkPlugin({
-	name: 'vendor', 
-	filename: 'js/[name].js'
+    // names: ['vendor'],
+	name:'vendor',    
+	filename: 'js/[name]-[hash:5].js'
 });
+
+
 const devServer ={
 	contentBase: path.resolve(__dirname),
 	compress: true,
@@ -30,6 +26,8 @@ const devServer ={
 	port: 8088
 };
 let config = {}
+
+
 const pagelist = (function () {
     let jsDir = path.resolve(__dirname, '../src/js/services/');
     let entryFiles = glob.sync(jsDir + '/*.js');
@@ -41,6 +39,8 @@ const pagelist = (function () {
     });
     return map;
 })();
+
+
 const util = (function () {
     let jsDir = path.resolve(__dirname, '../src/lib');
     let entryFiles = glob.sync(jsDir + '/*.js');
@@ -52,6 +52,8 @@ const util = (function () {
     });
     return map;
 })();
+
+
 const utilname = (function () {
     let jsDir = path.resolve(__dirname, '../src/lib');
     let entryFiles = glob.sync(jsDir + '/*.js');
@@ -60,34 +62,35 @@ const utilname = (function () {
     entryFiles.forEach(function (filePath) {
         let filename = filePath.substring(filePath.lastIndexOf('\/') + 1, filePath.lastIndexOf('.'));
         map[filename] = filename;
-        // map.push({
-        //     filename:[filename]
-        // })
+        
         name.push(filename)
     });
     return { util: map, name: name };
 })();
+
+
 console.log('..............')
 console.log('util', util)
 console.log('..............')
 console.log('utilname', utilname)
 console.log('..............')
+
+
 const htmlPages = (function () {
     var pageDir = path.resolve(__dirname, '../src/pages');
     var pageFiles = glob.sync(pageDir + '/*.art');
     var array = [];
-    // var chunks=[ 'vendor','main']
     pageFiles.forEach(function (filePath) {
         var filename = filePath.substring(filePath.lastIndexOf('\/') + 1, filePath.lastIndexOf('.'));
-        var chunks = ['vendor', 'main']
-        // console.log('chunks',chunkarr)
+        var chunks = ['vendor','template'].concat(utilname.name).concat(['main']).concat([filename])
+
         array.push(new HtmlWebpackPlugin({
             template: filePath,// path.resolve(__dirname, 'src/template/index.html'),
             filename: filename + '.html',
             inject:"body",
-            title: 'ejs',
-            data:new Date(),
-            chunks: ['vendor'].concat(utilname.name).concat(['main']).concat([filename]),
+            // title: 'ejs',
+            // data:new Date(),
+            chunks: ['vendor','template'].concat(utilname.name).concat(['main']).concat([filename]),
             chunksSortMode: function (chunk1, chunk2) {
                 var order = ['vendor'].concat(utilname.name).concat(['main']).concat([filename]);
                 var order1 = order.indexOf(chunk1.names[0]);
@@ -102,18 +105,26 @@ const htmlPages = (function () {
     });
     return array;
 })();
-console.log('entry')
-const entry = Object.assign(
-    pagelist,
-    utilname.util,
-    {
-        main: path.resolve(__dirname, '../src/main.js'),
-        vendor: ['jquery'],
-        // arttemplate:['']
-        // jquery:['jquery']
-        // cookie:['cookie']
-    }
-)
+
+
+
+
+
+const entry = 
+    Object.assign(
+        pagelist,
+        utilname.util,
+        {
+            main: path.resolve(__dirname, '../src/main.js'),
+            // template:['template']
+            vendor: ['jquery'],
+            // arttemplate:['']
+            // jquery:['jquery']
+            // cookie:['cookie']
+        }
+    )
+
+console.log('entry',entry)
 config = {
 	entry: entry,
 	devServer: devServer,
@@ -128,13 +139,14 @@ config = {
             util,
             {
                 '@lib': './src/lib',
-                '@css': './src/css'
-                // 'jquery':'jquery',
+                '@css': './src/css',
+                'jquery':'jquery',
                 // 'cookie':'./src/lib/jquery.cookie.js'
-
+                'template':path.resolve(__dirname,'../src/lib/template.js')
             }
         )
     },
+    devtool: 'source-map',
     module: {
         rules: [
             {
@@ -199,7 +211,6 @@ config = {
                             production: false//process.env.ENV === 'production'
                         }
                     },
-                    // 'ejs-render'
                 ],
                 
             },
@@ -238,24 +249,24 @@ config = {
     },
     plugins: [
 		hotModule,
-		// uglifyJs,
         new ExtractTextPlugin('css/[name].css'),
-        // new ExtractTextPlugin('css/[name].[chunkhash:5].css'),
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'vendor',
-            filename: 'js/[name].js'//[chunkhash:5]
-        }),
+
         new webpack.ProvidePlugin({
             jquery: 'window.jQuery',
-            $: "jquery"
+            $: "jquery",
+        
+            // template:'window.template'
 		}),
-		commonsJs,
-        // new CleanWebpackPlugin(['dist']),
+        // commonsJs,
+        new webpack.optimize.CommonsChunkPlugin({
+            names: ['vendor'],
+            filename: 'js/[name].js',
+            minChunks:'2'
+        }),
         // new HtmlWebpackPlugin({
-        // 	template:'./src/pages/index.html',
+        // 	template:'./src/pages/login.art',
         // 	filename: 'index.html',
         //     chunks: [ 'vendor', 'main','cookie','index'],
-        // 	// chunksSortMode: 3,
         // 	minify: {
         // 		removeComments:false,
         // 		collapseWhitespace:false
@@ -263,8 +274,9 @@ config = {
         // }),
     ].concat(htmlPages),
     externals:{
-        jquery: 'window.$',
-        // artTemplate: 'window.template'
+        // jquery: 'window.$',
+        
+        // template: 'window.template'
     }
 };
 
