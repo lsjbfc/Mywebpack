@@ -13,10 +13,21 @@ const uglifyJs = new webpack.optimize.UglifyJsPlugin({
     beautify: false,
     comments: false,
     compress: {
+        properties: false,
+        // warnings: false,
         warnings: false,
         // 删除console
-        drop_console: false
-    }
+        drop_console: false,
+        screw_ie8: false
+    },
+    output: {
+        beautify: true,
+        quote_keys: true
+    },
+    sourceMap: false,
+    mangle: {
+        screw_ie8: false
+      }
 });
 const pagelist = (function () {
     let jsDir = path.resolve(__dirname, '../src/js/services/');
@@ -74,9 +85,9 @@ const htmlPages = (function () {
             inject: "body",
             // title: '',
             // data: new Date(),
-            chunks: ['vendor'].concat(['main']).concat([filename]), //.concat(utilname.name)
+            chunks: ['vendor','compatible','main',filename], //.concat(utilname.name).concat(['main']).concat([filename])
             chunksSortMode: function (chunk1, chunk2) {
-                var order = ['vendor'].concat(['main']).concat([filename]); //.concat(utilname.name)
+                var order = ['vendor','compatible','main',filename]; //.concat([]).concat([filename]) .concat(utilname.name)
                 var order1 = order.indexOf(chunk1.names[0]);
                 var order2 = order.indexOf(chunk2.names[0]);
                 return order1 - order2;
@@ -99,6 +110,11 @@ const entry = Object.assign({},
     {
         main: path.resolve(__dirname, '../src/main.js'),
         vendor: ['jquery'],
+        compatible:[
+            path.resolve(__dirname, '../src/lib/es5-shim.min.js'),
+            path.resolve(__dirname, '../src/lib/es5-sham.min.js'),
+            // path.resolve(__dirname, '../src/lib/es5-shim.min.js'),
+        ]
         // jquery:['jquery']
         // cookie:['cookie']
     }
@@ -127,7 +143,6 @@ config = {
     },
     module: {
         rules: [
-
             {
                 test: /\.scss$/,
                 use: ['style-loader', 'css-loader', 'sass-loader']
@@ -173,21 +188,56 @@ config = {
                 }]
             },
             // {
-            //     test: /\.(html|htm|ejs)$/,
-            //     use: [
-
-            //         {
-            //             loader:'html-loader',
+            //     test: /\.js$/,
+            //     exclude: /(node_modules|bower_components)/,
+            //     use: [{
+            //        loader: 'babel-loader',
+            //     //    enforce: 'post',
+            //        options: {
+            //           presets: ['es3ify-loader']//,'es3ify-loader' 'es2015-loose'
+            //            //    "plugins": [
+            //     //     'transform-es3-member-expression-literals',
+            //     //     'transform-es3-property-literals'
+            //     //     ]
+            //        },
+               
+            //     }]
+            //  },
+            // {
+                
+            //         test: /\.js$/,
+            //         use:[{
+            //             loader:'babel',
             //             options:{
-            //                 attrs: [':src'],
-            //                 minimize: true,
-            //                 removeComments: false,
-            //                 collapseWhitespace: false
-            //             }
-            //         }
+            //                 presets: ["es2015"],
+            //                 // plugins: [
+            //                 //     "transform-es3-property-literals",
+            //                 //     "transform-es3-member-expression-literals",
+            //                 //     "transform-es2015-modules-simple-commonjs"
+            //                 // ]
+            //             },
+                        
+            //         }] 
 
-            //     ]
+                   
+                
             // },
+            {
+                test: /\.(html|htm)$/,
+                use: [
+
+                    {
+                        loader:'html-loader',
+                        options:{
+                            attrs: [':src'],
+                            minimize: true,
+                            removeComments: false,
+                            collapseWhitespace: false
+                        }
+                    }
+
+                ]
+            },
             // {
             //     test: /\.ejs$/,
             //     use: [
@@ -203,6 +253,7 @@ config = {
                 use: [{
                         loader: 'ejs-loader', //'ejs-html-loader', //
                         options: {
+                            attrs: [':src'],
                             title: 'ejs',
                             season: 1,
                             episode: 9,
@@ -213,23 +264,6 @@ config = {
                 ],
 
             },
-            // {
-            //     test: /\.ejs$/,
-            //     use:[
-            //         {
-            //             loader: 'ejs-loader',
-            //             options: {
-            //                 attrs: [':src'],
-            //                 title: 'ejs',
-            //                 season: 1,
-            //                 episode: 9,
-            //                 production: false//process.env.ENV === 'production'
-            //             }
-            //         },
-            //         // 'ejs-render'
-            //     ],
-
-            // },
             {
                 test: /\.(png|jpg|gif)$/i,
                 use: [{
@@ -239,8 +273,7 @@ config = {
                             name: "images/[name]-[hash:5].[ext]"
                         }
                     }
-                    // ,
-                    // 'image-webpack-loader'
+                    ,'image-webpack-loader'
                 ],
             },
             {

@@ -11,12 +11,17 @@ const HTTP_URL='192.168.1.192:9005';
 // }
 $.ajaxSetup({
     headers:{
-        token:'1111'
+        token:'NDIzYzAxMjE5YjEzOWQyZDZiZWY5NTdmNmEwYmMzNzQ='
     },
     error:(err)=>{
         console.log('err',err)
     }
 })
+// $.ajaxSetup({
+//     headers:{
+//         token:'token'
+//     }
+// })
 module.exports={
     HTTP_URL
 }
