@@ -27,7 +27,7 @@ const uglifyJs = new webpack.optimize.UglifyJsPlugin({
     sourceMap: false,
     mangle: {
         screw_ie8: false
-      }
+    }
 });
 const pagelist = (function () {
     let jsDir = path.resolve(__dirname, '../src/js/services/');
@@ -85,9 +85,9 @@ const htmlPages = (function () {
             inject: "body",
             // title: '',
             // data: new Date(),
-            chunks: ['vendor','compatible','main',filename], //.concat(utilname.name).concat(['main']).concat([filename])
+            chunks: ['vendor', 'compatible', 'main', filename], //.concat(utilname.name).concat(['main']).concat([filename])
             chunksSortMode: function (chunk1, chunk2) {
-                var order = ['vendor','compatible','main',filename]; //.concat([]).concat([filename]) .concat(utilname.name)
+                var order = ['vendor', 'compatible', 'main', filename]; //.concat([]).concat([filename]) .concat(utilname.name)
                 var order1 = order.indexOf(chunk1.names[0]);
                 var order2 = order.indexOf(chunk2.names[0]);
                 return order1 - order2;
@@ -106,11 +106,10 @@ deleteall(path.resolve(__dirname, '../dist'))
 
 const entry = Object.assign({},
     pagelist,
-    utilname.util, 
-    {
+    utilname.util, {
         main: path.resolve(__dirname, '../src/main.js'),
         vendor: ['jquery'],
-        compatible:[
+        compatible: [
             path.resolve(__dirname, '../src/lib/es5-shim.min.js'),
             path.resolve(__dirname, '../src/lib/es5-sham.min.js'),
             // path.resolve(__dirname, '../src/lib/es5-shim.min.js'),
@@ -120,7 +119,7 @@ const entry = Object.assign({},
     }
 )
 
-console.log('entry',entry)
+console.log('entry', entry)
 
 config = {
     entry: entry,
@@ -142,10 +141,19 @@ config = {
         )
     },
     module: {
-        rules: [
-            {
+        rules: [{
                 test: /\.scss$/,
                 use: ['style-loader', 'css-loader', 'sass-loader']
+            },
+            {
+                test: /\.less$/,
+                use: [{
+                    loader: "style-loader"
+                }, {
+                    loader: "css-loader"
+                }, {
+                    loader: "less-loader"
+                }]
             },
             {
                 test: /\.(eot|woff|ttf|svg)$/,
@@ -162,21 +170,26 @@ config = {
                                 importLoaders: 1,
                                 minimize: false,
                                 modules: false,
-                                // plugins:function(){
-                                //     return [
-                                //      require('autoprefixer')
-                                //     ]
-                                //     }                        
+                                name: 'font/[name].[ext]'
                             }
-
                         },
-                        'postcss-loader'
-                        // 'autoprefixer-loader',
+                        // 'postcss-loader',
+                        {
+                            loader: 'postcss-loader',
+                            options: {
+                                plugins: (loader) => [
+                                    require('autoprefixer')({
+                                        browsers: ['ie>=8', '>1% in CN'] //'ie>=8','>1% in CN' last 2 versions
+
+                                    })
+                                ]
+                            }
+                        },
+                        'autoprefixer-loader',
                     ]
 
                 })
             },
-
             {
                 test: /\.js$/,
                 exclude: /(node_modules|bower_components)/,
@@ -200,11 +213,11 @@ config = {
             //     //     'transform-es3-property-literals'
             //     //     ]
             //        },
-               
+
             //     }]
             //  },
             // {
-                
+
             //         test: /\.js$/,
             //         use:[{
             //             loader:'babel',
@@ -216,19 +229,19 @@ config = {
             //                 //     "transform-es2015-modules-simple-commonjs"
             //                 // ]
             //             },
-                        
+
             //         }] 
 
-                   
-                
+
+
             // },
             {
                 test: /\.(html|htm)$/,
                 use: [
 
                     {
-                        loader:'html-loader',
-                        options:{
+                        loader: 'html-loader',
+                        options: {
                             attrs: [':src'],
                             minimize: true,
                             removeComments: false,
@@ -267,14 +280,12 @@ config = {
             {
                 test: /\.(png|jpg|gif)$/i,
                 use: [{
-                        loader: "url-loader",
-                        options: {
-                            limit: 200,
-                            name: "images/[name]-[hash:5].[ext]"
-                        }
+                    loader: "url-loader",
+                    options: {
+                        limit: 200,
+                        name: "images/[name]-[hash:5].[ext]"
                     }
-                    ,'image-webpack-loader'
-                ],
+                }, 'image-webpack-loader'],
             },
             {
                 test: /\.art$/,
@@ -318,7 +329,7 @@ config = {
         new webpack.optimize.CommonsChunkPlugin({
             name: 'vendor',
             filename: 'js/[name][chunkhash:5].js',
-            minChunks:'2'
+            minChunks: '2'
         }),
         new webpack.ProvidePlugin({
             jquery: 'window.jQuery',
@@ -344,7 +355,7 @@ config = {
         //     chunks:["index"] 
         // }),
     ].concat(htmlPages),
-    externals:{
+    externals: {
         // 'jquery':'jquery'
         // 'cookie':'./src/lib/jquery.cookie.js',
         // 'template': path.resolve(__dirname,'../src/lib/jquery.cookie.js'),
