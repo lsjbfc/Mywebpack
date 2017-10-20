@@ -144,10 +144,10 @@ config = {
             '@lib': './src/lib',
             '@css': './src/css',
             'jquery': 'jquery',
-            // 'cookie':'./src/lib/jquery.cookie.js'
-            // 'template': path.resolve(__dirname, '../src/lib/template.js'),
-            // 'lib': path.resolve(__dirname, '../src/lib/template.js'),
-            // 'lib': path.resolve(__dirname, '../src/lib/jquery.cookie.js')
+               // 'cookie':'./src/lib/jquery.cookie.js'
+               // 'template': path.resolve(__dirname, '../src/lib/template.js'),
+               // 'lib': path.resolve(__dirname, '../src/lib/template.js'),
+               // 'lib': path.resolve(__dirname, '../src/lib/jquery.cookie.js')
          }
       )
    },
@@ -173,13 +173,7 @@ config = {
                         minimize: false,
                         modules: false,
                         name: 'font/[name].[ext]'
-                        // plugins:function(){
-                        //     return [
-                        //      require('autoprefixer')
-                        //     ]
-                        //     }                        
                      }
-
                   },
                   // 'postcss-loader',
                   {  
@@ -187,7 +181,8 @@ config = {
                      options: {  
                          plugins:(loader)=>[  
                              require('autoprefixer')({  
-                                 browsers:['last 5 versions']  
+                                 browsers:['ie>=8','>1% in CN']  //'ie>=8','>1% in CN' last 2 versions
+                                 
                              })  
                          ]  
                      }  
@@ -260,22 +255,13 @@ config = {
             use: 'expose-loader?$!expose-loader?jquery', // jQuery and $
          }
       ],
-      // postLoaders: [
-      //    {
-      //      test: /\.js$/,
-      //      use: ['es3ify-loader']
-      //    }
-      // ]
    },
    plugins: [
       hotModule,
       new ExtractTextPlugin('css/[name].css'),
-
       new webpack.ProvidePlugin({
          jquery: 'window.jquery',
          $: "jquery",
-
-         // template:'window.template'
       }),
       // commonsJs,
       new webpack.optimize.CommonsChunkPlugin({

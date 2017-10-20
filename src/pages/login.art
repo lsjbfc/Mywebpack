@@ -15,6 +15,9 @@
     </div>
     {{include '../util/footer/footer.art'}}
     <div class="button">button</div>
+    <nav>
+        nav
+    </nav>
     <script type="text/html" id="my">
         {(each arr item)} {(item)} {(/each)}
     </script>

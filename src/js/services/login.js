@@ -1,4 +1,5 @@
 import '../../css/register.css'
+import '../../css/test.scss'
 import '../../util/footer/footer.css'
 import '../../css/login.css'
 import main from '../../main.js'
@@ -105,7 +106,7 @@ var obj = new Proxy({}, {
     console.log('1',this.a)
   }
   const f=(x)=>{
-    
+
   }
   f.bind(foo)
   f('2')
