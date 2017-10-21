@@ -301,6 +301,14 @@ config = {
             {
                 test: require.resolve('jquery'),
                 use: 'expose-loader?$!expose-loader?jQuery', // jQuery and $
+            },{
+                test:/\.htc$/,
+                use:[{
+                    loader:'file-loader',
+                    options:{
+                        name:"css/IEcss/[name]-[hash:5].[ext]"
+                    }
+                }]
             }
         ],
         // htmlLoader: {
