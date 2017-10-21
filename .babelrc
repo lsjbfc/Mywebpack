@@ -1,1 +1,4 @@
-{ "presets": ["es2015"] }
+// { "presets": ["es2015"] }
+{
+    "presets": ["es2015"]//es3ify-loader es2015-loose
+    }
