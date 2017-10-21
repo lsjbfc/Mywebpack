@@ -5,6 +5,7 @@ const glob = require('glob');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin'); // 文件夹清除工具
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const OpenBrowserPlugin = require('open-browser-webpack-plugin');
 
 const hotModule = new webpack.HotModuleReplacementPlugin();
 
@@ -14,6 +15,7 @@ const commonsJs=new webpack.optimize.CommonsChunkPlugin({
 	name:'vendor',    
 	filename: 'js/[name]-[hash:5].js'
 });
+
 
 
 const devServer ={
@@ -248,7 +250,8 @@ config = {
         ]
     },
     plugins: [
-		hotModule,
+        hotModule,
+        new OpenBrowserPlugin({ url: 'http://localhost:8088' }),
         new ExtractTextPlugin('css/[name].css'),
 
         new webpack.ProvidePlugin({
@@ -275,12 +278,12 @@ config = {
     ].concat(htmlPages),
     externals:{
         // jquery: 'window.$',
-        
         // template: 'window.template'
     }
 };
 
 
-
+// var open = require("open");
+// open("http://localhost:8088");
 
 module.exports = config;
