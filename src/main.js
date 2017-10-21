@@ -9,6 +9,8 @@ const HTTP_URL='192.168.1.192:9005';
 //     let template=options.template||''
 //     let html=template('template')
 // }
+import template from './lib/template.js'
+template.defaults.rules[1].test = /{\(([@#]?)[ \t]*(\/?)([\w\W]*?)[ \t]*\)}/;
 $.ajaxSetup({
     headers:{
         token:'NDIzYzAxMjE5YjEzOWQyZDZiZWY5NTdmNmEwYmMzNzQ='

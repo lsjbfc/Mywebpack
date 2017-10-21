@@ -11,4 +11,7 @@ body{
   display: flex;
   border: 1px solid red;
   border-radius: 5px ;
+  background-color: #FFF;
+  behavior: url(./IEcss/ie8-css.htc);
+  /* ie-css3.htc */
 }

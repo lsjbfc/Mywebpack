@@ -42,12 +42,8 @@
     "less": "^3.0.0-alpha.3",
     "less-loader": "^4.0.5",
     "node-sass": "^4.5.3",
-<<<<<<< HEAD
     "open": "0.0.5",
     "open-browser-webpack-plugin": "0.0.5",
-=======
-    "post-loader": "^2.0.0",
->>>>>>> 95c6eefb04b01770ad4e4755790bfd08c663c2d9
     "sass-loader": "^6.0.6",
     "style-loader": "^0.19.0",
     "url-loader": "^0.6.2",

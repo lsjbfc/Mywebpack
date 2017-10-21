@@ -10,7 +10,7 @@ import template from '../../lib/template.js'
 
 
 // var jquery=$;
-template.defaults.rules[1].test = /{\(([@#]?)[ \t]*(\/?)([\w\W]*?)[ \t]*\)}/;
+
 
 console.log('template.defaults.rules[1].test', template.defaults.rules[1].test)
 // (function() {
