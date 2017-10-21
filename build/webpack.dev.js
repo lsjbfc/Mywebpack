@@ -160,7 +160,7 @@ config = {
             use: ['style-loader', 'css-loader', 'sass-loader']
          },
          {
-            test: /\.less$/,
+            test: /\.less$/, 
             use: [{
                 loader: "style-loader" 
             }, {
