@@ -110,8 +110,8 @@ const entry = Object.assign({},
         main: path.resolve(__dirname, '../src/main.js'),
         vendor: ['jquery'],
         compatible: [
-            path.resolve(__dirname, '../src/lib/es5-shim.min.js'),
-            path.resolve(__dirname, '../src/lib/es5-sham.min.js'),
+            path.resolve(__dirname, '../src/lib/compatible/es5-shim.min.js'),
+            path.resolve(__dirname, '../src/lib/compatible/es5-sham.min.js'),
             // path.resolve(__dirname, '../src/lib/es5-shim.min.js'),
         ]
         // jquery:['jquery']
@@ -317,7 +317,7 @@ config = {
         //     attrs: ['img:src', 'link:href']
         // },
     },
-    devtool: 'source-map',
+    // devtool: 'source-map',
     plugins: [
         // new webpack.LoaderOptionsPlugin({
         //     options: {
@@ -335,8 +335,13 @@ config = {
         new ExtractTextPlugin('css/[name].[chunkhash:5].css'),
         // new ExtractTextPlugin('css/[name].[chunkhash:5].css'),
         new webpack.optimize.CommonsChunkPlugin({
-            name: 'vendor',
-            filename: 'js/[name][chunkhash:5].js',
+            // name: ['vendor'],
+            // // name:'common',
+            // filename: 'js/[name].[chunkhash:5].js',
+            // // chunks: ['compatible'],
+            // minChunks: '2'
+            names: ['vendor'],//, 'lib'
+            filename: 'js/[name]-[chunkhash:5].js',
             minChunks: '2'
         }),
         new webpack.ProvidePlugin({

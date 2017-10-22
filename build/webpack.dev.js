@@ -122,8 +122,8 @@ const entry =
          // template:['template']
          vendor: ['jquery'],
          compatible:[
-            path.resolve(__dirname, '../src/lib/es5-shim.min.js'),
-            path.resolve(__dirname, '../src/lib/es5-sham.min.js'),
+            path.resolve(__dirname, '../src/lib/compatible/es5-shim.min.js'),
+            path.resolve(__dirname, '../src/lib/compatible/es5-sham.min.js'),
             // path.resolve(__dirname, '../src/lib/es5-shim.min.js'),
         ]
       }

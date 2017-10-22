@@ -57,8 +57,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack-dev-server --hot --inline  --progress --colors --config build/webpack.dev.js",
-    "build": "webpack --config build/webpack.build.js",
-    "webpack": "webpack --config webpack.base.js"
+    "build": "webpack --progress --colors --config build/webpack.build.js",
+    "webpack": "webpack --progress --colors --config webpack.base.js"
   },
   "author": "lsjbfc",
   "license": "ISC"

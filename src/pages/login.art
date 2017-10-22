@@ -15,6 +15,8 @@
     </div>
     {{include '../util/footer/footer.art'}}
     <div class="button">button</div>
+    <a href="./index.html">index</a>
+    
     <nav>
         nav
     </nav>
