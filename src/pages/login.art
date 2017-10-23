@@ -1,27 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>login</title>
 </head>
+
 <body>
-    <!-- ${require('../images/login-logo.png')} -->
-    {{include './header.art'}}
-    <img src="../images/1.png" />
-    <div id='header'>
-        header
-    </div>
-    {{include '../util/footer/footer.art'}}
-    <div class="button">button</div>
-    <a href="./index.html">index</a>
-    
-    <nav>
-        nav
-    </nav>
+    <header>
+        <a href="./index.html">
+            <img src="../images/logoLogin.png" />
+        </a>
+        <p class="platform">健康家居全生活化服务平台</p>
+    </header>
+    <main>
+        <div class="mainbox">
+            <form>
+                <p class="title">
+                    <span>账户登录</span>
+                    <!-- <span>扫码登录</span> -->
+                </p>
+                <p class="tip"></p>
+                <p class="input name">
+                    <span>
+                        <img src="../images/account.png" alt="">
+                    </span>
+                    <input maxlength="21" autocomplete="off" type="text" id="username" placeholder="手机号/账号" />
+                    <span class="clear n">
+                        <img src="../images/Clear.png" />
+                    </span>
+                </p>
+
+                <p class="input psw">
+                    <span>
+                        <img src="../images/pw.png" />
+                    </span>
+                    <input maxlength="18" autocomplete="off" type="password" id="password" placeholder="密码" />
+                    <span class="clear p">
+                        <img src="../images/Clear.png" />
+                    </span>
+                </p>
+                <div class="safe">
+                    <a href="findPassWord.html" class="forget">忘记密码?</a>
+                    <a href="register.html" class="register">注册账号</a>
+                </div>
+                <p id="login">
+                    <span>登录</span>
+                    <span class="ellipses"></span>
+                </p>
+                <!-- <fieldset>
+                            <legend>更多合作账号</legend>
+                            <div>
+                                <i class="iconfont icon-weixin"></i>
+                                <i class="iconfont icon-qq"></i>
+                                <i class="iconfont icon-xinlangweibo"></i>
+                            </div>
+                        </fieldset> -->
+            </form>
+        </div>
+    </main>
+    <footer class="footer">
+        <!-- <div class="footerbox">
+                <div>
+                    <a href="#">关于我们</a>
+                    <span>|</span>
+                    <a href="#">联系我们</a>
+                    <span>|</span>
+                    <a href="#">非凡会员</a>
+                    <span>|</span>
+                    <a href="#">尊享会员</a>
+                    <span>|</span>
+                    <a href="#">广告服务</a>
+                    <span>|</span>
+                    <a href="#">手机非凡</a>
+                    <span>|</span>
+                    <a href="#">友情链接</a>
+                    <span>|</span>
+                    <a href="#">商家入驻</a>
+                </div>
+                <p>Copyright&copy;2014-2017&nbsp;&nbsp;非凡生活·版权所有</p>
+            </div> -->
+    </footer>
+
     <script type="text/html" id="my">
         {(each arr item)} {(item)} {(/each)}
     </script>
 </body>
+
 </html>

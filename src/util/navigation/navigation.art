@@ -1,0 +1,47 @@
+<script type="text/html" id="nav">
+        {(each lists item)}
+        <li>
+            <em class="wraper">
+                <div class="icon">
+                    <img src="http://ffsh-oss.oss-cn-beijing.aliyuncs.com/{(item.icon)}" alt="">
+                </div>
+                <div class="text">
+
+                    <h2 name="{(item.id)}">
+                        {(item.categoryName)}
+                    </h2>
+                    <p>
+                        {(if item.children.length>0)} 
+                            {(each item.children cur)}
+                                <a href="javascript:void(0);" name="{(cur.id)}">
+                                    {(cur.categoryName)}
+                                </a>
+                                <span>/</span>
+                            {(/each)}
+                        {(/if)}
+                    </p>
+                </div>
+            </em>
+            <div class="list2">
+                {(each item.children cur)}
+                <dl>
+                    <dt>
+                        <a href="javascrip:void(0)" name="{(cur.id)}">
+                            {(cur.categoryName)}
+                        </a>
+                    </dt>
+                    <dd class="aaa">
+                            {(each cur.children current)}
+                                <a href="javascript:void(0)" name="">
+                                    <!-- {(current.categoryName)} -->
+                                    {(current.categoryName)}
+                                </a>
+                            {(/each)} 
+
+                    </dd>
+                </dl>
+                {(/each)}
+            </div>
+        </li>
+        {(/each)}
+</script>

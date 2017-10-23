@@ -1,0 +1,7 @@
+<script type="text/html" id="product_template">
+    {(each arr item)}
+        <li class="list_second">
+            <a class="list1_a" href="{(item.ahref)}" name="{(item.id)}">{(item.columnName)}</a>
+        </li>
+    {(/each)}
+</script>

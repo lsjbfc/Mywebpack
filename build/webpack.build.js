@@ -7,6 +7,8 @@ const CleanWebpackPlugin = require('clean-webpack-plugin'); // 文件夹清除�
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const fs = require('fs')
 // const precss = require('precss');
+let extractCSS = new ExtractTextPlugin('css/[name].[chunkhash:6].css');
+let extractLESS = new ExtractTextPlugin('css/[name].[chunkhash:6].css');
 
 let config = {}
 const uglifyJs = new webpack.optimize.UglifyJsPlugin({
@@ -141,23 +143,10 @@ config = {
         )
     },
     module: {
-        rules: [{
+        rules: [
+            {
                 test: /\.scss$/,
                 use: ['style-loader', 'css-loader', 'sass-loader']
-            },
-            {
-                test: /\.less$/,
-                use: [{
-                    loader: "style-loader"
-                }, {
-                    loader: "css-loader"
-                }, {
-                    loader: "less-loader"
-                }]
-            },
-            {
-                test: /\.(eot|woff|ttf|svg)$/,
-                use: ['url-loader?limit=8192&name=font/[name].[hash:16].[ext]']
             },
             {
                 test: /\.css$/,
@@ -168,15 +157,6 @@ config = {
                             loader: 'css-loader',
                             options: {
                                 importLoaders: 1,
-                                minimize: false,
-                                modules: false,
-                                name: 'font/[name].[ext]'
-                            }
-                        },
-                        // 'postcss-loader',
-                        {
-                            loader: 'postcss-loader',
-                            options: {
                                 plugins: (loader) => [
                                     require('autoprefixer')({
                                         browsers: ['ie>=8', '>1% in CN'] //'ie>=8','>1% in CN' last 2 versions
@@ -185,10 +165,38 @@ config = {
                                 ]
                             }
                         },
-                        'autoprefixer-loader',
+                        'postcss-loader'
                     ]
 
                 })
+            },
+            {
+                test: /\.less$/,
+                exclude: /(node_modules|bower_components)/,
+                use: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: [{
+                            loader: 'css-loader',
+                            options: {
+                                importLoaders: 1,
+                                plugins: (loader) => [
+                                    require('autoprefixer')({
+                                        browsers: ['ie>=8', '>1% in CN'] //'ie>=8','>1% in CN' last 2 versions
+
+                                    })
+                                ]
+                            }
+                        },
+                        'postcss-loader',
+                        {
+                            loader: "less-loader"
+                        }
+                    ]
+                })
+            },
+            {
+                test: /\.(eot|woff|ttf|svg)$/,
+                use: ['url-loader?limit=8192&name=font/[name].[hash:16].[ext]']
             },
             {
                 test: /\.js$/,
@@ -200,41 +208,6 @@ config = {
                     }
                 }]
             },
-            // {
-            //     test: /\.js$/,
-            //     exclude: /(node_modules|bower_components)/,
-            //     use: [{
-            //        loader: 'babel-loader',
-            //     //    enforce: 'post',
-            //        options: {
-            //           presets: ['es3ify-loader']//,'es3ify-loader' 'es2015-loose'
-            //            //    "plugins": [
-            //     //     'transform-es3-member-expression-literals',
-            //     //     'transform-es3-property-literals'
-            //     //     ]
-            //        },
-
-            //     }]
-            //  },
-            // {
-
-            //         test: /\.js$/,
-            //         use:[{
-            //             loader:'babel',
-            //             options:{
-            //                 presets: ["es2015"],
-            //                 // plugins: [
-            //                 //     "transform-es3-property-literals",
-            //                 //     "transform-es3-member-expression-literals",
-            //                 //     "transform-es2015-modules-simple-commonjs"
-            //                 // ]
-            //             },
-
-            //         }] 
-
-
-
-            // },
             {
                 test: /\.(html|htm)$/,
                 use: [
@@ -251,16 +224,6 @@ config = {
 
                 ]
             },
-            // {
-            //     test: /\.ejs$/,
-            //     use: [
-
-            //         {
-            //             loader: 'ejs-loader'
-            //         },
-
-            //     ]
-            // },
             {
                 test: /\.ejs$/,
                 use: [{
@@ -301,12 +264,13 @@ config = {
             {
                 test: require.resolve('jquery'),
                 use: 'expose-loader?$!expose-loader?jQuery', // jQuery and $
-            },{
-                test:/\.htc$/,
-                use:[{
-                    loader:'file-loader',
-                    options:{
-                        name:"css/IEcss/[name]-[hash:5].[ext]"
+            },
+            {
+                test: /\.htc$/,
+                use: [{
+                    loader: 'file-loader',
+                    options: {
+                        name: "css/IEcss/[name]-[hash:5].[ext]"
                     }
                 }]
             }
@@ -331,16 +295,17 @@ config = {
         //     }
         // }),
         uglifyJs,
-        // 'autoprefixer': {browsers: 'last 5 version'},
-        new ExtractTextPlugin('css/[name].[chunkhash:5].css'),
         // new ExtractTextPlugin('css/[name].[chunkhash:5].css'),
+        // new ExtractTextPlugin('css/[name].[chunkhash:5].css'),
+        extractCSS,
+        extractLESS,
         new webpack.optimize.CommonsChunkPlugin({
-            // name: ['vendor'],
+            name: 'vendor',
             // // name:'common',
             // filename: 'js/[name].[chunkhash:5].js',
             // // chunks: ['compatible'],
             // minChunks: '2'
-            names: ['vendor'],//, 'lib'
+            // names: ['vendor'], //, 'lib'
             filename: 'js/[name]-[chunkhash:5].js',
             minChunks: '2'
         }),

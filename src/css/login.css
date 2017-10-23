@@ -1,17 +1,215 @@
-body{
-  /* width: 1000px; */
-  /* height: 500px; */
-  /* padding:200px 200px; */
-}
-.button{
-  color: red;
-  margin-top: 20px;
-  padding: 20px 10px;
-  text-align: center;
+header {
+  width: 100%;
   display: flex;
-  border: 1px solid red;
-  border-radius:10px ;
+  flex-direction: column;
+  align-items: center;
+}
+
+header img {
+  margin-top: 58px;
+}
+
+header .platform {
+  font-size: 14px;
+  color: #AE7247;
+  letter-spacing: 22px;
+  margin: 12px 0 22px 0;
+}
+
+main {
+  width: 100%;
+  height: 625px;
+  background: url("../images/loginBitmap.png") no-repeat;
+  background-size: 100%;
+  position: relative
+}
+
+main .mainbox {
+  width: 1190px;
+  margin: 0 auto;
+  position: relative
+}
+
+main form {
+  display: flex;
+  flex-direction: column;
+  width: 440px;
+  height: 450px;
   background-color: #FFF;
-  behavior: url(./IEcss/ie8-css.htc);
-  /* ie-css3.htc */
+  padding: 67px 55px 30px 55px;
+  box-sizing: border-box;
+  position: absolute;
+  top: 40px;
+  right: 0;
+  border: 1px solid #D7D7D7;
+}
+
+form .title {
+  font-size: 24px;
+  display: flex;
+  justify-content: space-between;
+  color: #707070;
+  margin-bottom:5px;
+  
+}
+form .tip{
+      font-size: 12px;
+      width:100%;
+      height:40px;
+      line-height:20px;
+      color: red;
+      padding: 10px;
+      box-sizing: border-box;
+      margin-bottom:5px;
+      /* overflow: hidden; */
+      /* display: none; */
+}
+.tip i{
+  display: inline-block;
+  vertical-align:middle;
+  width: 19px;
+  height: 19px;
+  background: url("../images/Group.png") no-repeat -19px;
+  margin-top: -5px;
+}
+.input {
+  width: 330px;
+  height: 58px;
+  background: #FFFFFF;
+  border: 1px solid #D7D7D7;
+  box-sizing: border-box;
+  margin-bottom: 24px;
+  text-indent:10px;
+  
+}
+.input .n{
+  display: none;
+}
+.input .p{
+  display: none;
+}
+.input span{
+  display: inline-block;
+  height:58px;
+  line-height: 58px;
+  padding-top: 14px;
+  box-sizing: border-box;
+  float: left;
+}
+.input .clear{
+  float: left;
+  padding-top:20px;
+  box-sizing: border-box;
+}
+.input input {
+  padding:10px 0;
+  text-indent:10px;
+  box-sizing:border-box;
+  border: 0;
+  outline: 0;
+  font-size: 14px;
+ 
+  margin-top: 10px;
+  width:85%;
+  float: left;
+}
+
+form .safe {
+  margin-bottom: 24px;
+  font-size: 14px;
+}
+.safe .forget{
+  float: left;
+  color: #A5A5A5;
+  cursor: pointer;
+}
+.safe .register{
+  float: right;
+  color: #A5A5A5;
+  cursor:pointer;
+}
+
+form #login {
+  width: 100%;
+  background: #58C36F;
+  height: 56px;
+  line-height: 56px;
+  text-align: center;
+  font-size: 16px;
+  color: #FFFFFF;
+  cursor: pointer;
+  position: relative;
+}
+form #login .ellipses{
+  width:20px;
+  /* color:red; */
+  /* float: right; */
+  display: inline-block;
+  /* margin-right: 10px; */
+}
+
+fieldset {
+  border: 0;
+  border-top: 1px solid #D7D7D7;
+  margin-top: 60px
+}
+
+legend {
+  text-align: center;
+  padding: 0 20px;
+  font-size: 14px;
+  color: #A5A5A5;
+}
+
+fieldset div {
+  justify-content: center;
+  display: flex;
+  width: 100%;
+}
+
+fieldset i {
+  display: block;
+  width: 33px;
+  height: 33px;
+  font-size: 33px!important;
+  padding: 0 15px;
+  opacity: 0.35;
+}
+
+footer {
+  width: 100%;
+}
+
+footer .footerbox {
+  width: 1120px;
+  margin: 0 auto;
+  font-size: 14px;
+  color: #A5A5A5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #FFF;
+  padding-top: 130px
+}
+
+.footerbox div {
+  width: 580px;
+  display: flex;
+  justify-content: space-between;
+  height: 20px
+}
+
+.footerbox div a {
+  color: #A5A5A5
+}
+
+.footerbox p {
+  margin: 16px
+}
+
+#tt {
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  padding: 0 10px
 }

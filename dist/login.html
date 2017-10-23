@@ -1,51 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>login</title>
-<link href="/css/vendor.17ba1.css" rel="stylesheet"></head>
+<link href="/css/vendor.d79617.css" rel="stylesheet"><link href="/css/login.dbb7a5.css" rel="stylesheet"></head>
+
 <body>
-    <!-- ${require('../images/login-logo.png')} -->
-    <div>
-    header
-    <img src="/images/1-0b187.png" alt="">
-</div>
-    <img src="/images/1-0b187.png">
-    <div id="header">
-        header
-    </div>
-    <div class="footer">
-  <div class="box">
-    <div>
-      <a href="#">关于我们</a>
-      <span>|</span>
-      <a href="#">联系我们</a>
-      <span>|</span>
-      <a href="#">非凡会员</a>
-      <span>|</span>
-      <a href="#">尊享会员</a>
-      <span>|</span>
-      <a href="#">广告服务</a>
-      <span>|</span>
-      <a href="#">手机非凡</a>
-      <span>|</span>
-      <a href="#">友情链接</a>
-      <span>|</span>
-      <a href="#">商家入驻</a>
-    </div>
-    <p>Copyright&copy&copy;2014-2017&nbsp;&nbsp;非凡生活·版权所有</p>
-  </div>
-</div>
-    <div class="button">button</div>
-    <a href="./index.html">index</a>
-    
-    <nav>
-        nav
-    </nav>
+    <header>
+        <a href="./index.html">
+            <img src="/images/logoLogin-fe3dd.png">
+        </a>
+        <p class="platform">健康家居全生活化服务平台</p>
+    </header>
+    <main>
+        <div class="mainbox">
+            <form>
+                <p class="title">
+                    <span>账户登录</span>
+                    <!-- <span>扫码登录</span> -->
+                </p>
+                <p class="tip"></p>
+                <p class="input name">
+                    <span>
+                        <img src="/images/account-ff3c2.png" alt="">
+                    </span>
+                    <input maxlength="21" autocomplete="off" type="text" id="username" placeholder="手机号/账号">
+                    <span class="clear n">
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOBAMAAADtZjDiAAAAJ1BMVEX///+Xl5eYmJjl5eX6+vrLy8urq6ukpKScnJzQ0NDS0tL09PTR0dFzfO4wAAAATUlEQVQI12NgYAnrSHVgYGAwFxQULGZgYFYE0kIGDO6CioJCgiUMgUI7BWcrijIkCk44xSkoxtAoKMWwUFACTsPEYepg+mDmwMyF2gMAMKwTHfJ8gdcAAAAASUVORK5CYII=">
+                    </span>
+                </p>
+
+                <p class="input psw">
+                    <span>
+                        <img src="/images/pw-43da4.png">
+                    </span>
+                    <input maxlength="18" autocomplete="off" type="password" id="password" placeholder="密码">
+                    <span class="clear p">
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOBAMAAADtZjDiAAAAJ1BMVEX///+Xl5eYmJjl5eX6+vrLy8urq6ukpKScnJzQ0NDS0tL09PTR0dFzfO4wAAAATUlEQVQI12NgYAnrSHVgYGAwFxQULGZgYFYE0kIGDO6CioJCgiUMgUI7BWcrijIkCk44xSkoxtAoKMWwUFACTsPEYepg+mDmwMyF2gMAMKwTHfJ8gdcAAAAASUVORK5CYII=">
+                    </span>
+                </p>
+                <div class="safe">
+                    <a href="findPassWord.html" class="forget">忘记密码?</a>
+                    <a href="register.html" class="register">注册账号</a>
+                </div>
+                <p id="login">
+                    <span>登录</span>
+                    <span class="ellipses"></span>
+                </p>
+                <!-- <fieldset>
+                            <legend>更多合作账号</legend>
+                            <div>
+                                <i class="iconfont icon-weixin"></i>
+                                <i class="iconfont icon-qq"></i>
+                                <i class="iconfont icon-xinlangweibo"></i>
+                            </div>
+                        </fieldset> -->
+            </form>
+        </div>
+    </main>
+    <footer class="footer">
+        <!-- <div class="footerbox">
+                <div>
+                    <a href="#">关于我们</a>
+                    <span>|</span>
+                    <a href="#">联系我们</a>
+                    <span>|</span>
+                    <a href="#">非凡会员</a>
+                    <span>|</span>
+                    <a href="#">尊享会员</a>
+                    <span>|</span>
+                    <a href="#">广告服务</a>
+                    <span>|</span>
+                    <a href="#">手机非凡</a>
+                    <span>|</span>
+                    <a href="#">友情链接</a>
+                    <span>|</span>
+                    <a href="#">商家入驻</a>
+                </div>
+                <p>Copyright&copy;2014-2017&nbsp;&nbsp;非凡生活·版权所有</p>
+            </div> -->
+    </footer>
+
     <script type="text/html" id="my">
         {(each arr item)} {(item)} {(/each)}
     </script>
-<script type="text/javascript" src="/js/vendor-17ba1.js"></script><script type="text/javascript" src="/js/compatible.js"></script><script type="text/javascript" src="/js/main.js"></script><script type="text/javascript" src="/js/login.js"></script></body>
+<script type="text/javascript" src="/js/vendor-d7961.js"></script><script type="text/javascript" src="/js/compatible.js"></script><script type="text/javascript" src="/js/main.js"></script><script type="text/javascript" src="/js/login.js"></script></body>
+
 </html>

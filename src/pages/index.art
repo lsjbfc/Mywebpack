@@ -3,27 +3,201 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>首页</title>
+    <title>非凡商城</title>
 </head>
 
 <body>
-
-    index
-
-        
-
-
-    <img src="../images/1.png" alt="">
-    <div class="img">
-
+    <div id="header">
     </div>
-    <div id="header">\
-
-        asdfa
+    <div class="head">
     </div>
-    <a href="./login.html">login</a>
+    <div class="nav_box">
+        <ul class="nav">
+            <li class="list1 active">
+                <a href="javascript:void(0)" class="list1_a">商品分类</a>
+            </li>
+            {{include "../util/nav/nav.art"}}
+            <div class="sort">
+                <ul>
+                    {{include "../util/navigation/navigation.art"}}
+                </ul>
+            </div>
+            <div class="img_icon"></div>
+        </ul>
+    </div>
+    <div class="box" id="box">
+        <div class="banner_box">
+            <div class="banner">
+                <div id="container">
+                    <ul id="imgbox">
+                        <!-- <li><img src="../images/Bitmap_banner.png" alt=""></li>
+						<li><img src="../images/banner2.png" alt=""></li>
+						<li><img src="../images/banner3.png" alt=""></li> -->
+                    </ul>
+                    <div id="circle"></div>
+                </div>
+            </div>
+            <div class="member">
+                <div id="loginHeadBox">
+                    <div class="login_logo"></div>
+                    <div class="name" id="user_name">Hi～你好</div>
+                    <span class="new">游客</span>
+                </div>
+                <div class="content nologin">
+                    <p class="navigation">推荐获取非凡币请前往&nbsp;
+                        <span>会员推荐</span>
+                    </p>
+                    <a href="./login.html" class="nologin_a">登录</a>
+                    <a href="./register.html" class="nologin_a">注册</a>
+                </div>
+                <div class="content logined">
+                    <div class="content_l">
+                        <p class="amount">0</p>
+                        <p class="waiting">待付款</p>
+                        <a href="./personInfo.html" class="vip">会员推荐</a>
+                    </div>
+                    <div class="content_r">
+                        <p class="amount">0</p>
+                        <p class="waiting">待收货</p>
+                        <a href="./personInfo.html" class="vip">会员专区</a>
+                    </div>
+                </div>
+                <div class="announcement">
+                    <p>
+                        <em>公告</em>
+                        <span>装修案例已上线，马上查看</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="hot_recom" id="hot_recom">
+            <h2 class="sub_title">热门推荐</h2>
+            <div class="hot_box" id="hot_box">
+                <ul class="items" id="items">
+                    <script type="text/html" id="recomLists">
+                        {{ each lists item}}
+                        <li class="item" nameId="{{item.specId}}">
+                            <a href="#">
+                                <div class="border">
+                                    <p class="pic">
+                                        <img src="http://ffsh-oss.oss-cn-beijing.aliyuncs.com/{{item.topImg}}?x-oss-process=image/resize,m_fixed,h_104,w_208"
+                                            alt="">
+                                    </p>
+                                    <p class="title">{{item.goodsName}}</p>
+                                </div>
+                                <p class="price">¥{{item.salePrice}}</p>
+                                <p class="sale">已售:{{item.sales}}</p>
+                            </a>
+                        </li>
+                        {{/each}}
+                    </script>
+                    <!-- <li class="item">
+						<a href="#">
+							<div class="border">
+								<p class="pic"><img src="../images/sofa2.png" alt=""></p>
+								<p class="title">金牌旅行组合</p>
+							</div>
+							<p class="price">¥3700.00</p>
+							<p class="sale">已售:5000</p>
+						</a>
+					</li> -->
+                </ul>
+            </div>
+            <div class="prev button"></div>
+            <div class="next button"></div>
+        </div>
+        <div class="content_box"></div>
+        <script type="text/html" id=sublists>
+            <$ for(var i=0,len=sublists.length; i<len;i++) {$>
+                <div class="list_title">
+                    <h2 class="light_title">
+                        <span style="background: url(http://ffsh-oss.oss-cn-beijing.aliyuncs.com/<$=sublists[i].viceIcon $>?x-oss-process=image/resize,m_fixed,h_30,w_30) no-repeat center;"></span>
+                        <em>
+                            <$=sublists[i].categoryName $>
+                        </em>
+                    </h2>
+                    <ul class="tab">
+                        <$ if(sublists[i].children.length>0) {$>
+                            <$var lencode=s ublists[i].children.length>3 ? 3 : sublists[i].children.length $>
+                                <$ for(var j=0;j<lencode;j++) { $>
+                                    <li>
+                                        <a href="./list.html?id=<$=sublists[i].children[j].id $>" target="_blank">
+                                            <$=sublists[i].children[j].categoryName $>
+                                        </a>
+                                    </li>
+                                    <$ } $>
+                                        <$ } $>
+                                            <li class="last">
+                                                <a href="./list.html?id=<$=sublists[i].id $>" target="_blank">更多>></a>
+                                            </li>
+                    </ul>
+                </div>
+                <div class="lighting">
+                    <div class="left">
+                        <img src="http://ffsh-oss.oss-cn-beijing.aliyuncs.com/<$=sublists[i].img$>" alt="">
+                    </div>
+                    <!-- <div class="left">
+					<img src="../images/lighting.png" alt="">
+					<p>如何正确选择</p>
+					<p>灯饰照明</p>
+				</div> -->
+                    <ul class="right thirdList" id="box">
+                    </ul>
+                </div>
+                <$ }$>
+                    <div class="table_left">
+                        <ul class="nav_container">
+                            <$ for(var i=0,len=sublists.length; i<len;i++ ) { $>
+                                <li icon="<$=sublists[i].icon$>" viceIcon="<$=sublists[i].viceIcon$>" style="background: url(http://ffsh-oss.oss-cn-beijing.aliyuncs.com/<$=sublists[i].viceIcon $>?x-oss-process=image/resize,m_fixed,h_30,w_30) no-repeat center;"
+                                /li>
+                                    <$ } $>
+                        </ul>
+                    </div>
+        </script>
+    </div>
+    <div class="table_right">
+        <div>
+            <i class="micon">
+                <img src="../images/kehu.png" />
+            </i>
+            <i class="sicon">
+                <img src="../images/kehu-01.png" />
+            </i>
+            <span>客服</span>
+        </div>
+        <div class="car">
+            <a href="./car.html">
+                <i class="micon">
+                    <img src="../images/cart.png" />
+                </i>
+                <i class="sicon">
+                    <img src="../images/cart-01.png" />
+                </i>
+                <span>购物车</span>
+                <em class="carNum">0</em>
+            </a>
+        </div>
+        <div>
+            <i class="micon">
+                <img src="../images/Favorites.png" />
+            </i>
+            <i class="sicon">
+                <img src="../images/Favorites-01.png" />
+            </i>
+            <span>收藏</span>
+        </div>
+        <div>
+            <i class="micon">
+                <img src="../images/record.png" />
+            </i>
+            <i class="sicon">
+                <img src="../images/record-01.png" />
+            </i>
+            <span>记录</span>
+        </div>
+    </div>
+    <div class="footer"></div>
 </body>
 
 </html>

@@ -1,0 +1,440 @@
+.table_right{
+	width:70px;
+	font-size: 14px;
+	color: #AE7247;
+	position: fixed;
+	right: 0;
+	top: 40%;
+	cursor: pointer;
+}
+.table_right div{
+	width:100%;
+	height:76px;
+	margin-bottom:2px;
+	background:#FFF;
+	text-align: center;
+	color:#686868;
+}
+.table_right div i{
+	text-align: center;
+	/* display: inline-block; */
+	width: 36px;
+	height: 36px;
+}
+
+.table_right div .micon{
+	display:inline-block;
+	margin:0 auto;
+	font-size: 0
+
+}
+.table_right div .sicon{
+	display:none;
+	margin:0 auto;
+	font-size: 0
+}
+.table_right div:hover{
+	color:#AE7247;
+}
+.table_right div:hover .micon{
+	display:none;
+}
+.table_right div:hover .sicon{
+	display:inline-block;
+	
+}
+
+/*IE的兼容*/
+.table_right div{
+	padding-top: 10px;
+	text-align: center;
+}
+/*.table_right div img{
+	margin-left: 18px;
+	margin-bottom: 6px;
+}*/
+.table_right div span{
+	display: inline-block;
+	width: 100%;
+	text-align: center;
+}
+.table_right .car{
+	position: relative;
+}
+.table_right .car .carNum{
+	position: absolute;
+	/* z-index: 99999999999; */
+	top: 8px;
+	right: 0;
+	border: 0;
+	background: #2BBE4A;
+	color:#FFF;
+	border-radius: 50%;
+	/* border-radius: 10px; */
+	text-align: center;
+	/* behavior: url(ie-css3.htc); */
+}
+
+
+/*左边的导航部分*/
+.table_left .nav_container{
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+	width:40px;
+	/*height: 240px;*/
+	background:#F0F0F0;
+	position: fixed;
+	left: 8%;
+	top:40%;
+	border: 1px solid #AE7247;
+	z-index: 33333;
+}
+.table_left li{
+	width:40px;
+	height:40px;
+	border-bottom: 1px solid #BE8E6B;
+	cursor: pointer;
+}
+
+.table_left .last{
+	border: none;
+}
+
+
+/*头部的公用样式*/
+#header{
+	width: 100%;
+	background: #F0F0F0;
+}
+#header .top{
+	width: 1190px;
+	margin:0 auto;
+	overflow: hidden;
+	height: 30px;
+	line-height: 30px;	
+}
+.top .top_left{
+	float: left;
+	width: 230px;
+}
+.top_left .city{
+	font-size: 14px;
+	color: #3D3D3D;
+	background: url("../images/CombinedShape.png") no-repeat 0 10px;
+	text-indent: 12px;
+}
+.top_left .city span{
+	font-size: 12px;
+}
+.top .top_right{
+	float: right;
+	font-size: 12px;
+	overflow: hidden;
+	width: 720px;
+	text-align: right;
+}
+.top_right .welcome{
+	/*float: right;*/
+	text-align: right;
+	display: inline-block;
+}
+.welcome p span{
+	color: #AE7247 ;
+}
+.welcome a{
+	color:#22B850;
+}
+.top_right .hotline{
+	float: right;
+	display: inline-block;
+	overflow: hidden;
+	text-align: right;
+}
+.hotline li{
+	float: left;
+}
+.hotline li a{
+	padding:0 13px;
+	border-left:1px solid #ccc;
+	color: #3D3D3D;
+}
+.hotline .first a{
+	border-left: none;
+}
+
+/*头部的搜索部分*/
+.head{
+	width: 1190px;
+	margin:0 auto;
+	/*overflow: hidden;*/
+	/*height: 100px;*/
+	padding-top: 22px;
+	padding-bottom: 20px;
+	position: relative;
+	height: 102px;
+	box-sizing: border-box;
+}
+.head .logo{
+	float: left;
+	width: 240px;
+}
+.head .search_box{
+	float: right;
+	width: 920px;
+}
+.search_box .input{
+	width: 558px;
+	float: left;
+	border: 1px solid #2BBE4A;
+	position: relative;
+}
+.search_box .input .searchList{
+	position: absolute;
+	left: -1px;
+	top: 39px;
+	width: 558px;
+	border: 1px solid #ccc;
+	background: #fff;
+	z-index: 22222;
+	font-size: 12px;
+	display: none;
+	line-height: 20px;
+	border-top: none;
+	/* padding-bottom: 16px; */
+}
+.search_box .input .searchList li{
+	color: #999;
+	text-indent: 16px;
+	cursor: pointer;
+	margin-bottom: 4px;
+	/*border-bottom: 1px solid #ccc;*/
+}
+.search_box .input .searchList li:hover{
+	/* background: #ccc; */
+}
+.search_box .input .searchList .hoverd{
+	background: #ccc;
+}
+.search_box .search{
+	width: 558px;
+	height: 36px;
+	line-height: 36px;
+	border:none;
+	text-indent: 14px;
+	border-radius: 2px;
+	outline: none;
+}
+.search_box .search_btn{
+	float: left;
+	display: inline-block;
+	width: 94px;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	font-size: 14px;
+	background: #2BBE4A;
+	margin-right: 14px;
+	color:#fff;
+}
+.search_box .cart{
+	float: left;
+	display: inline-block;
+	width: 136px;
+	height: 38px;
+	line-height: 38px;
+	text-align: center;
+	position: relative;
+	border:1px solid #ccc;
+	font-size: 18px;
+	color: #58C36F;
+	position: relative;
+}
+.search_box .recommend{
+	clear:both;
+	padding-top:4px;
+}
+.search_box .recommend{
+	font-size: 12px;
+}
+.recommend a{
+	color: #3D3D3D;
+	padding-right: 4px;
+}
+.recommend .marked{
+	color: #FF514E;
+}
+/* .recommend a:first-of-type{
+	color: #FF514E;
+} */
+
+/*商城导航部分*/
+.nav_box{
+	width: 100%;
+	background: #22B850;
+}
+.nav_box .img_icon{
+	position: absolute;
+	width: 100px;
+	height: 40px;
+	background: url(../images/720_design.png) no-repeat center;
+	top: 0;
+	right: 0;
+	z-index: 22;
+}
+.nav_box .nav{
+	width: 1190px;
+	margin:0 auto;
+	position: relative;
+	height: 40px;
+}
+.nav .list1{
+	float: left;
+	width: 232px;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+}
+.nav .list_second{
+	float: left;
+	height: 40px;
+	line-height: 40px;
+	margin-left: 68px;
+}
+.nav .active{
+	/*background: #747474;
+	opacity: 0.3;*/
+	/*background: rgba(0,0,0,0.2);*/
+	background: #13923A;
+}
+.nav .list1 .list1_a,.nav .list_second .list1_a{
+	font-size: 16px;
+	color: #fff;
+}
+.nav .list_second .list1_a{
+	/*padding-left: 68px;*/
+}
+/*.nav .selected .list1_a{
+	padding: 6px 20px;
+	border-radius: 20px;
+	background: #fff;
+	color: #22B850;
+}*/
+.nav .img_icon{
+	float: right;
+}
+
+
+/*扫描二维码关注的样式*/
+.erweima_box{
+	position: absolute;
+	width: 152px;
+	height: 210px;
+	/*border: 1px solid #ccc;*/
+	padding: 0px;
+	right: 122px;
+	top: -104px;
+	z-index: 99;
+	background: url(../images/qr-bg.png) no-repeat;
+}
+.erweima_box p{
+	padding: 10px 0;
+	font-size: 12px;
+	color: #3D3D3D;
+	/*height: 14px;*/
+	line-height: 18px;
+	text-align: center;
+	padding-top: 16px;
+}
+.erweima_box p i{
+	color:#290000;
+}
+.erweima_box span{
+	display: inline-block;
+	font-size: 12px;
+	text-align: center;
+	width: 100%;
+	clear: both;
+	padding: 10px 0;
+}
+.show_care_erweima{
+	/*position: absolute;*/
+	display:block;
+	width: 128px;
+	height: 128px;
+	margin-left: 12px;
+}
+section{
+	min-height: 60px
+}
+ #header{
+    min-height: 30px;
+}
+
+.nav_box{
+    /* margin: 132px; */
+    min-height: 40px;
+}
+
+
+
+/*弹出层的公共样式*/
+
+#layer{
+	/*display: none;*/
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	z-index: 99999;
+	/*display: inline-block;*/
+	width: 280px;
+	height: 140px;
+	background: #FFFFFF;
+	border: 4px solid #D7D7D7;
+	border-radius: 4px;
+}
+#layer .tip_title{
+	width: 100%;
+	height: 30px;
+	line-height: 30px;
+	text-indent: 8px;
+	background: #F7F7F7;
+	font-size: 14px;
+	color: #6E6E6E;
+}
+#layer .msg_box{
+	width: 100%;
+	height: 141px;
+}
+#layer .msg_box .img{
+	width: 52px;
+	height: 52px;
+	margin: 25px auto;
+	display: block;
+}
+#layer .msg_box .tip_msg{
+	width: 100%;
+	text-align: center;
+	height: 20px;
+	font-size: 14px;
+	color: #6E6E6E;
+}
+
+/*购物车右上角的公共样式*/
+.carNum{
+	display: inline-block;
+	position: absolute;
+	min-width: 20px;
+	height: 20px;
+	border-radius: 10px;
+	background: #2BBE4A;
+	color: #fff;
+	font-size: 12px;
+	text-align: center;
+	line-height: 20px;
+	right: -10px;
+	top: -10px;
+}
+
+

@@ -1,29 +1,25 @@
-console.log('main.js')
-// import template from '../../lib/template.js'
-const HTTP_URL='192.168.1.192:9005';
-// exp  
-// const temrender=(options)=>{
-//     let data=options.data||'';
-//     let remove=options.remove||false;
-//     let insertion=options.insertion;
-//     let template=options.template||''
-//     let html=template('template')
-// }
 import template from './lib/template.js'
+
+export const HTTP_URL='http://116.62.224.22:9005';
+export const IMGURL = "http://ffsh-oss.oss-cn-beijing.aliyuncs.com/"; 
+
+
+template.defaults.rules[0].test = /<$(#?)((?:==|=#|[=-])?)[ \t]*([\w\W]*?)[ \t]*(-?)$>/;
 template.defaults.rules[1].test = /{\(([@#]?)[ \t]*(\/?)([\w\W]*?)[ \t]*\)}/;
+
 $.ajaxSetup({
     headers:{
         token:'NDIzYzAxMjE5YjEzOWQyZDZiZWY5NTdmNmEwYmMzNzQ='
     },
     error:(err)=>{
-        console.log('err',err)
+        console.error('err',err)
     }
 })
-// $.ajaxSetup({
-//     headers:{
-//         token:'token'
-//     }
-// })
-module.exports={
-    HTTP_URL
-}
+// module.exports={
+//     HTTP_URL,
+//     IMGURL
+// }
+
+// export { HTTP_URL, IMGURL };
+// export
+// export const a=1;

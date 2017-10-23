@@ -1,6 +1,6 @@
-webpackJsonp([ 1 ], {
-    "21": function(o, c, n) {
+webpackJsonp([ 3 ], {
+    "18": function(o, c, n) {
         "use strict";
         console.log("pay");
     }
-}, [ 21 ]);
+}, [ 18 ]);
