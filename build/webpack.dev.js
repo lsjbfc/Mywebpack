@@ -327,8 +327,10 @@ config = {
     }
 };
 
-
-// var open = require("open");
-// open("http://localhost:8088");
+var probe=require('./port.js')
+ 
+new probe(8088,()=>{
+    console.log('.........')
+})
 
 module.exports = config;
